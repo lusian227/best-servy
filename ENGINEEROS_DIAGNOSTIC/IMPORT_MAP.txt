@@ -1,0 +1,114 @@
+C:\Users\Clone\Downloads\engineeros\src\components\projects\DrawingUploadModal.tsx:7: import { useRecordStore } from '../../modules/records/store/recordStore';
+C:\Users\Clone\Downloads\engineeros\src\components\projects\DrawingUploadModal.tsx:8: import { RecordCategory, Discipline } from '../../modules/records/domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\core\repositories\IRepository.ts:1: // src/core/repositories/IRepository.ts
+C:\Users\Clone\Downloads\engineeros\src\core\repositories\MemoryRepository.ts:1: // src/core/repositories/MemoryRepository.ts
+C:\Users\Clone\Downloads\engineeros\src\core\repositories\RepositoryFactory.ts:1: // src/core/repositories/RepositoryFactory.ts
+C:\Users\Clone\Downloads\engineeros\src\domain\records\EngineeringRecord.ts:1: // src/domain/records/EngineeringRecord.ts
+C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts:4: import { EngineeringRecord } from '../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:3: import { EngineeringRecord } from '../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\GoogleViewer.tsx:1: // src/modules/records/components/viewers/GoogleViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\HtmlViewer.tsx:1: // src/modules/records/components/viewers/HtmlViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\ImageViewer.tsx:1: // src/modules/records/components/viewers/ImageViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\index.ts:1: // src/modules/records/components/viewers/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\OfficeViewer.tsx:1: // src/modules/records/components/viewers/OfficeViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\PDFViewer.tsx:1: // src/modules/records/components/viewers/PDFViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\viewers\ViewerFactory.tsx:1: // src/modules/records/components/viewers/ViewerFactory.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\ApprovalStatus.tsx:1: // src/modules/records/components/ApprovalStatus.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\ApprovalStatus.tsx:9: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\FileUploader.tsx:1: // src/modules/records/components/FileUploader.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\index.ts:1: // src/modules/records/components/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:1: // src/modules/records/components/RecordDetail.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordForm.tsx:1: // src/modules/records/components/RecordForm.tsx - FIXED TO PRESERVE FILES
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordLibrary.tsx:1: // src/modules/records/components/RecordLibrary.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordLibrary.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordUpload.tsx:1: // src/modules/records/components/RecordUpload.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\UploadCenter.tsx:1: // src/modules/records/components/UploadCenter.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\VersionTimeline.tsx:1: // src/modules/records/components/VersionTimeline.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\controllers\ResponseTypes.ts:1: // src/modules/records/controllers/ResponseTypes.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:1: // src/modules/records/data/sampleRecords.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:3: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\AIData.ts:1: // src/modules/records/domain/AIData.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\EngineeringRecord.ts:1: // src/modules/records/domain/EngineeringRecord.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\EngineeringRecord.ts:3: export * from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:1: // src/modules/records/domain/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:12: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordCategory.ts:1: // src/modules/records/domain/RecordCategory.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordCategory.ts:5: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordLink.ts:1: // src/modules/records/domain/RecordLink.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordStatus.ts:1: // src/modules/records/domain/RecordStatus.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordStatus.ts:5: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\validators.ts:1: // src/modules/records/domain/validators.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\Workflow.ts:1: // src/modules/records/domain/Workflow.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\apiClient.ts:1: // src/modules/records/hooks/apiClient.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\index.ts:1: // src/modules/records/hooks/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:1: // src/modules/records/hooks/useFileUpload.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:1: // src/modules/records/hooks/useRecord.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:1: // src/modules/records/hooks/useRecords.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\pages\RecordsPage.tsx:1: // src/modules/records/pages/RecordsPage.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:1: // src/modules/records/repositories/RecordRepository.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:3: import { MemoryRepository } from '../../../core/repositories/MemoryRepository';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\ApprovalService.ts:1: // src/modules/records/services/ApprovalService.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\ApprovalService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\index.ts:1: // src/modules/records/services/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:1: // src/modules/records/services/RecordService.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:11: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\UploadManager.ts:1: // src/modules/records/services/UploadManager.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\VersionService.ts:1: // src/modules/records/services/VersionService.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\VersionService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:1: // src/modules/records/store/recordStore.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:4: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records\viewers\ViewerFactory.tsx:1: // src/modules/records/viewers/ViewerFactory.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records\index.ts:1: // src/modules/records/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\GoogleViewer.tsx:1: // src/modules/records/components/viewers/GoogleViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\HtmlViewer.tsx:1: // src/modules/records/components/viewers/HtmlViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\ImageViewer.tsx:1: // src/modules/records/components/viewers/ImageViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\index.ts:1: // src/modules/records/components/viewers/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\OfficeViewer.tsx:1: // src/modules/records/components/viewers/OfficeViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\PDFViewer.tsx:1: // src/modules/records/components/viewers/PDFViewer.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\viewers\ViewerFactory.tsx:1: // src/modules/records/components/viewers/ViewerFactory.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\ApprovalStatus.tsx:1: // src/modules/records/components/ApprovalStatus.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\ApprovalStatus.tsx:9: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\FileUploader.tsx:1: // src/modules/records/components/FileUploader.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\index.ts:1: // src/modules/records/components/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:1: // src/modules/records/components/RecordDetail.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordForm.tsx:1: // src/modules/records/components/RecordForm.tsx - FIXED TO PRESERVE FILES
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordLibrary.tsx:1: // src/modules/records/components/RecordLibrary.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordLibrary.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordUpload.tsx:1: // src/modules/records/components/RecordUpload.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\UploadCenter.tsx:1: // src/modules/records/components/UploadCenter.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\VersionTimeline.tsx:1: // src/modules/records/components/VersionTimeline.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\controllers\ResponseTypes.ts:1: // src/modules/records/controllers/ResponseTypes.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:1: // src/modules/records/data/sampleRecords.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:3: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\AIData.ts:1: // src/modules/records/domain/AIData.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\index.ts:1: // src/modules/records/domain/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\RecordCategory.ts:1: // src/modules/records/domain/RecordCategory.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\RecordLink.ts:1: // src/modules/records/domain/RecordLink.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\RecordStatus.ts:1: // src/modules/records/domain/RecordStatus.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\Workflow.ts:1: // src/modules/records/domain/Workflow.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\apiClient.ts:1: // src/modules/records/hooks/apiClient.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\index.ts:1: // src/modules/records/hooks/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:1: // src/modules/records/hooks/useFileUpload.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecord.ts:1: // src/modules/records/hooks/useRecord.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecords.ts:1: // src/modules/records/hooks/useRecords.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecords.ts:5: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\ApprovalService.ts:1: // src/modules/records/services/ApprovalService.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\ApprovalService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\index.ts:1: // src/modules/records/services/index.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:1: // src/modules/records/services/RecordService.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:3: import { EngineeringRecord, RecordCategory, Discipline, RecordStatus } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\VersionService.ts:1: // src/modules/records/services/VersionService.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\VersionService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:1: // src/modules/records/store/recordStore.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:4: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\viewers\ViewerFactory.tsx:1: // src/modules/records/viewers/ViewerFactory.tsx
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\index.ts:1: // src/modules/records/index.ts
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:3: import { EngineeringRecord } from '../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\stores\index.ts:5: export * from '../modules/records/store/recordStore';
+C:\Users\Clone\Downloads\engineeros\src\types\record.ts:1: export * from '../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\App.tsx:32: import { RecordList } from './modules/records/components/RecordList';
+C:\Users\Clone\Downloads\engineeros\src\App.tsx:33: import { UploadCenter } from './modules/records/components/UploadCenter';
+C:\Users\Clone\Downloads\engineeros\src\App.tsx:34: import { RecordsPage } from './modules/records/pages/RecordsPage';
+C:\Users\Clone\Downloads\engineeros\src\index.ts:1: export * from "./modules/records";

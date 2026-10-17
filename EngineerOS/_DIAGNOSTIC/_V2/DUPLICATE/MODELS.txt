@@ -1,0 +1,22 @@
+ENGINEEROS DUPLICATE MODEL REPORT
+
+================ EngineeringRecord.ts ================
+src\domain\records\EngineeringRecord.ts
+src\modules\records\domain\EngineeringRecord.ts
+
+================ StoredFile.ts ================
+src\domain\files\StoredFile.ts
+src\modules\records\domain\StoredFile.ts
+src\modules\records_backup\domain\StoredFile.ts
+
+================ RecordRepository.ts ================
+src\modules\records\repositories\RecordRepository.ts
+src\repositories\RecordRepository.ts
+
+================ RecordService.ts ================
+src\modules\records\services\RecordService.ts
+src\modules\records_backup\services\RecordService.ts
+
+================ RecordsPage.tsx ================
+src\modules\records\pages\RecordsPage.tsx
+src\pages\RecordsPage.tsx

@@ -1,0 +1,6 @@
+{
+  "name": "EngineerOS",
+  "description": "The AI-Powered Enterprise Engineering Platform & Operating System for Engineering Projects, Knowledge, and Operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

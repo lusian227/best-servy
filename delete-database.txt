@@ -1,0 +1,5 @@
+﻿// PASTE THIS IN YOUR BROWSER CONSOLE (F12) TO DELETE CORRUPTED DATABASE
+// Then refresh the page
+
+indexedDB.deleteDatabase('EngineerOS');
+console.log('✅ Database deleted. Refresh the page now.');

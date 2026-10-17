@@ -1,0 +1,16 @@
+﻿
+
+FullName : C:\Users\Clone\Downloads\engineeros\src\components\common\SyncStatus.tsx.backup
+Name     : SyncStatus.tsx.backup
+
+FullName : C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts.backup
+Name     : localDB.ts.backup
+
+FullName : C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts.backup
+Name     : RecordRepository.ts.backup
+
+FullName : C:\Users\Clone\Downloads\engineeros\src\types\note.ts.bak
+Name     : note.ts.bak
+
+
+

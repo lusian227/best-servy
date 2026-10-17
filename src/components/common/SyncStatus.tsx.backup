@@ -1,0 +1,140 @@
+﻿// src/components/common/SyncStatus.tsx - Add a reset button
+
+import React, { useState, useEffect } from 'react';
+import { Wifi, WifiOff, RefreshCw, CheckCircle, AlertCircle, RotateCcw } from 'lucide-react';
+import { isOnline, getPendingSync, resetDatabase } from '../../lib/localDB';
+
+export function SyncStatus() {
+  const [online, setOnline] = useState(isOnline());
+  const [pendingCount, setPendingCount] = useState(0);
+  const [syncing, setSyncing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [resetting, setResetting] = useState(false);
+
+  useEffect(() => {
+    const updateStatus = () => {
+      setOnline(isOnline());
+      checkPending();
+    };
+
+    window.addEventListener('online', updateStatus);
+    window.addEventListener('offline', updateStatus);
+
+    const interval = setInterval(checkPending, 10000);
+
+    return () => {
+      window.removeEventListener('online', updateStatus);
+      window.removeEventListener('offline', updateStatus);
+      clearInterval(interval);
+    };
+  }, []);
+
+  const checkPending = async () => {
+    try {
+      const pending = await getPendingSync();
+      setPendingCount(pending?.length || 0);
+      setError(null);
+    } catch (err) {
+      console.error('Failed to check pending:', err);
+      setError('Sync check failed');
+      setPendingCount(0);
+    }
+  };
+
+  const handleSync = async () => {
+    if (!online || syncing) return;
+    setSyncing(true);
+    setError(null);
+    try {
+      const { RecordRepository } = await import('../../repositories/RecordRepository');
+      const repo = new RecordRepository();
+      await repo.syncPending();
+      await checkPending();
+    } catch (err) {
+      console.error('Sync failed:', err);
+      setError('Sync failed. Please try again.');
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const handleResetDatabase = async () => {
+    if (!confirm('This will reset the local database. Any unsynced changes will be lost. Continue?')) return;
+    setResetting(true);
+    try {
+      await resetDatabase();
+      setError(null);
+      setPendingCount(0);
+      window.location.reload();
+    } catch (err) {
+      console.error('Reset failed:', err);
+      setError('Database reset failed');
+    } finally {
+      setResetting(false);
+    }
+  };
+
+  return (
+    <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-sm">
+      {online ? (
+        <>
+          <Wifi className="h-4 w-4 text-emerald-500" />
+          <span className="text-slate-600 dark:text-slate-400">Online</span>
+        </>
+      ) : (
+        <>
+          <WifiOff className="h-4 w-4 text-red-500" />
+          <span className="text-slate-600 dark:text-slate-400">Offline</span>
+        </>
+      )}
+
+      {error && (
+        <>
+          <span className="text-slate-300 dark:text-slate-600">|</span>
+          <span className="text-red-500 text-xs flex items-center gap-1">
+            <AlertCircle className="h-3 w-3" />
+            {error}
+          </span>
+          <button
+            onClick={handleResetDatabase}
+            disabled={resetting}
+            className="text-xs text-blue-500 hover:text-blue-700 underline flex items-center gap-1"
+          >
+            <RotateCcw className="h-3 w-3" />
+            {resetting ? 'Resetting...' : 'Reset DB'}
+          </button>
+        </>
+      )}
+
+      {!error && pendingCount > 0 && (
+        <>
+          <span className="text-slate-300 dark:text-slate-600">|</span>
+          <button
+            onClick={handleSync}
+            disabled={!online || syncing}
+            className={
+              online && !syncing
+                ? 'flex items-center gap-1 px-2 py-0.5 rounded transition bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-200 dark:hover:bg-yellow-900/50'
+                : 'flex items-center gap-1 px-2 py-0.5 rounded transition bg-gray-100 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
+            }
+          >
+            {syncing ? (
+              <RefreshCw className="h-3 w-3 animate-spin" />
+            ) : (
+              <AlertCircle className="h-3 w-3" />
+            )}
+            <span>{syncing ? 'Syncing...' : pendingCount + ' pending'}</span>
+          </button>
+        </>
+      )}
+
+      {!error && pendingCount === 0 && online && (
+        <>
+          <span className="text-slate-300 dark:text-slate-600">|</span>
+          <CheckCircle className="h-3 w-3 text-emerald-500" />
+          <span className="text-emerald-500 text-xs">Synced</span>
+        </>
+      )}
+    </div>
+  );
+}

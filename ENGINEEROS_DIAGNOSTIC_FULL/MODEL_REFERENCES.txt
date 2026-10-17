@@ -1,0 +1,416 @@
+
+================ EngineeringRecord ================
+C:\Users\Clone\Downloads\engineeros\src\components\projects\DrawingUploadModal.tsx:8: import { RecordCategory, Discipline } from '../../modules/records/domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\domain\records\EngineeringRecord.ts:1: // src/domain/records/EngineeringRecord.ts
+C:\Users\Clone\Downloads\engineeros\src\domain\records\EngineeringRecord.ts:56: export interface EngineeringRecord {
+C:\Users\Clone\Downloads\engineeros\src\domain\index.ts:5: export * from './records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\domain\verify.ts:5: import { EngineeringRecord, RecordCategory, Discipline } from './records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\domain\verify.ts:43: const record: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts:4: import { EngineeringRecord } from '../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts:7: records!: Table<EngineeringRecord, string>;
+C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts:20: export async function saveRecordOffline(record: EngineeringRecord): Promise<void> {
+C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts:28: export async function getRecordsOffline(): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\lib\localDB.ts:37: export async function getRecordOffline(id: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:3: import { EngineeringRecord } from '../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:10: record?: EngineeringRecord;
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:156: private async generatePreview(file: File, record: EngineeringRecord): Promise<string | null> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\ApprovalStatus.tsx:7: EngineeringRecord,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\ApprovalStatus.tsx:9: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\ApprovalStatus.tsx:12: record: EngineeringRecord;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:2: import { EngineeringRecord, RecordStatus } from '../domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:5: record: EngineeringRecord;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:9: record: EngineeringRecord | null;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordForm.tsx:4: import { EngineeringRecord, RecordCategory, Discipline, RecordStatus } from '../domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordForm.tsx:8: record?: EngineeringRecord | null;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordLibrary.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordLibrary.tsx:16: const [records, setRecords] = useState<EngineeringRecord[]>([]);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordLibrary.tsx:17: const [filteredRecords, setFilteredRecords] = useState<EngineeringRecord[]>([]);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordLibrary.tsx:18: const [selectedRecord, setSelectedRecord] = useState<EngineeringRecord | null>(null);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\UploadCenter.tsx:20: ) => Promise<EngineeringRecord>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:3: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:5: export const sampleRecords: EngineeringRecord[] = [
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\EngineeringRecord.ts:1: // src/modules/records/domain/EngineeringRecord.ts
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\EngineeringRecord.ts:3: export * from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:4: EngineeringRecord,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:12: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordCategory.ts:5: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordStatus.ts:5: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:18: const [selectedRecord, setSelectedRecord] = useState<EngineeringRecord | null>(null);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordSearchFilters, OwnerType, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:32: const [records, setRecords] = useState<EngineeringRecord[]>([]);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:35: const [selectedRecord, setSelectedRecord] = useState<EngineeringRecord | null>(null);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:46: let fetchedRecords: EngineeringRecord[] = [];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:147: let results: EngineeringRecord[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:4: import { EngineeringRecord, RecordSearchFilters } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:6: export class RecordRepository extends MemoryRepository<EngineeringRecord> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:7: async search(filters: RecordSearchFilters): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:52: async findByWorkspace(workspaceId: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:56: async findByProject(projectId: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:60: async getRecent(limit: number = 10): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:66: async getLatest(projectId?: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\ApprovalService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\ApprovalService.ts:74: async submitForApproval(recordId: string, submittedBy: string): Promise<{ record: EngineeringRecord; workflow: ApprovalWorkflow }> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\ApprovalService.ts:161: ): Promise<{ record: EngineeringRecord; workflow: ApprovalWorkflow }> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\ApprovalService.ts:186: ): Promise<{ record: EngineeringRecord; workflow: ApprovalWorkflow }> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:4: EngineeringRecord,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:11: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:43: async create(input: CreateRecordInput): Promise<EngineeringRecord> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:51: const record: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:92: async getAll(): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:96: async getByWorkspace(workspaceId: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:120: async getById(id: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:124: async search(query: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:131: ): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:136: const updated: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:164: async upload(recordId: string, file: File, storageUrl: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:170: const updated: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:206: async getByProject(projectId: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:217: async getByOwner(ownerType: string, ownerId: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:232: async advancedSearch(filters: RecordSearchFilters): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:281: async changeStatus(id: string, newStatus: RecordStatus, userId: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:306: const updated: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:319: async archive(id: string, userId: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:326: async restore(id: string, userId: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:333: async approve(id: string, userId: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:351: ): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:355: const updated: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:385: async getRecent(limit: number = 10): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\VersionService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\VersionService.ts:83: async restoreVersion(recordId: string, versionNumber: number): Promise<EngineeringRecord | null> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\VersionService.ts:92: const restored: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:4: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:14: records: EngineeringRecord[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:15: selectedRecord: EngineeringRecord | null;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:21: getRecord: (id: string) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:22: createRecord: (input: CreateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:23: updateRecord: (id: string, input: UpdateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:29: ) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:30: searchRecords: (query: string) => Promise<EngineeringRecord[]>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:31: setSelectedRecord: (record: EngineeringRecord | null) => void;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:33: getFilteredRecords: () => EngineeringRecord[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\index.ts:3: // export * from './domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\ApprovalStatus.tsx:7: EngineeringRecord,
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\ApprovalStatus.tsx:9: } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\ApprovalStatus.tsx:12: record: EngineeringRecord;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:2: import { EngineeringRecord, RecordStatus } from '../domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:5: record: EngineeringRecord;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:9: record: EngineeringRecord | null;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordForm.tsx:4: import { EngineeringRecord, RecordCategory, Discipline, RecordStatus } from '../domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordForm.tsx:8: record?: EngineeringRecord | null;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordLibrary.tsx:4: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordLibrary.tsx:16: const [records, setRecords] = useState<EngineeringRecord[]>([]);
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordLibrary.tsx:17: const [filteredRecords, setFilteredRecords] = useState<EngineeringRecord[]>([]);
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordLibrary.tsx:18: const [selectedRecord, setSelectedRecord] = useState<EngineeringRecord | null>(null);
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:3: import { EngineeringRecord } from '../../../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:5: export const sampleRecords: EngineeringRecord[] = [
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\index.ts:3: export * from './EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecords.ts:5: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecords.ts:19: records: EngineeringRecord[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecords.ts:30: const [records, setRecords] = useState<EngineeringRecord[]>([]);
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecords.ts:60: const response = await api.get<PaginatedResponse<EngineeringRecord>>(url);
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\ApprovalService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\ApprovalService.ts:74: async submitForApproval(recordId: string, submittedBy: string): Promise<{ record: EngineeringRecord; workflow: ApprovalWorkflow }> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\ApprovalService.ts:161: ): Promise<{ record: EngineeringRecord; workflow: ApprovalWorkflow }> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\ApprovalService.ts:186: ): Promise<{ record: EngineeringRecord; workflow: ApprovalWorkflow }> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:3: import { EngineeringRecord, RecordCategory, Discipline, RecordStatus } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:36: async create(input: CreateRecordInput): Promise<EngineeringRecord> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:45: const record: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:86: async getAll(): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:90: async getByWorkspace(workspaceId: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:115: async getById(id: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:119: async search(query: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:126: ): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:131: const updated: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:159: async upload(recordId: string, file: File, storageUrl: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:165: const updated: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\VersionService.ts:3: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\VersionService.ts:83: async restoreVersion(recordId: string, versionNumber: number): Promise<EngineeringRecord | null> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\VersionService.ts:92: const restored: EngineeringRecord = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:4: import { EngineeringRecord } from "../../../domain/records/EngineeringRecord";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:14: records: EngineeringRecord[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:15: selectedRecord: EngineeringRecord | null;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:21: getRecord: (id: string) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:22: createRecord: (input: CreateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:23: updateRecord: (id: string, input: UpdateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:29: ) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:30: searchRecords: (query: string) => Promise<EngineeringRecord[]>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:31: setSelectedRecord: (record: EngineeringRecord | null) => void;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:33: getFilteredRecords: () => EngineeringRecord[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\index.ts:3: // export * from './domain/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:3: import { EngineeringRecord } from '../domain/records/EngineeringRecord';
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:9: async findAll(): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:33: async findById(id: string): Promise<EngineeringRecord | undefined> {
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:55: async save(record: EngineeringRecord): Promise<EngineeringRecord> {
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:115: async search(query: string): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:149: private mapFromSupabase(data: any): EngineeringRecord {
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:183: private mapToSupabase(record: EngineeringRecord): any {
+C:\Users\Clone\Downloads\engineeros\src\types\record.ts:1: export * from '../domain/records/EngineeringRecord';
+
+================ CreateRecordInput ================
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\UploadCenter.tsx:6: import { CreateRecordInput } from '../services/RecordService';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\UploadCenter.tsx:18: input: CreateRecordInput,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\UploadCenter.tsx:150: const input: CreateRecordInput = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:5: CreateRecordInput,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\validators.ts:3: import { CreateRecordInput, UpdateRecordInput } from './types';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\validators.ts:6: static validateCreate(input: CreateRecordInput): void {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:46: const createRecord = useCallback(async (input: CreateRecordInput) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:128: const createRecordWithFile = useCallback(async (input: CreateRecordInput, file: File) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordSearchFilters, OwnerType, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:73: const createRecord = useCallback(async (input: CreateRecordInput) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:99: const createRecordWithFile = useCallback(async (input: CreateRecordInput, file: File) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:8: CreateRecordInput,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:43: async create(input: CreateRecordInput): Promise<EngineeringRecord> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\UploadManager.ts:5: import type { CreateRecordInput } from '../domain/RecordDTO';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\UploadManager.ts:17: input: CreateRecordInput,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:5: import { RecordService, CreateRecordInput, UpdateRecordInput } from '../services/RecordService';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:22: createRecord: (input: CreateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:85: createRecord: async (input: CreateRecordInput) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\UploadCenter.tsx:6: import { CreateRecordInput } from '../services/RecordService';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\UploadCenter.tsx:133: const input: CreateRecordInput = {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecord.ts:5: import { CreateRecordInput, UpdateRecordInput } from "../services/RecordService";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:8: export interface CreateRecordInput {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:36: async create(input: CreateRecordInput): Promise<EngineeringRecord> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:5: import { RecordService, CreateRecordInput, UpdateRecordInput } from '../services/RecordService';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:22: createRecord: (input: CreateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:85: createRecord: async (input: CreateRecordInput) => {
+
+================ UpdateRecordInput ================
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:6: UpdateRecordInput,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\validators.ts:3: import { CreateRecordInput, UpdateRecordInput } from './types';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\validators.ts:30: static validateUpdate(input: UpdateRecordInput): void {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecord.ts:62: const updateRecord = useCallback(async (id: string, input: UpdateRecordInput) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordSearchFilters, OwnerType, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:79: const updateRecord = useCallback(async (id: string, input: UpdateRecordInput) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:9: UpdateRecordInput,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:130: input: UpdateRecordInput
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:5: import { RecordService, CreateRecordInput, UpdateRecordInput } from '../services/RecordService';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:23: updateRecord: (id: string, input: UpdateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\store\recordStore.ts:104: updateRecord: async (id: string, input: UpdateRecordInput) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useRecord.ts:5: import { CreateRecordInput, UpdateRecordInput } from "../services/RecordService";
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:22: export interface UpdateRecordInput {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:125: input: UpdateRecordInput
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:5: import { RecordService, CreateRecordInput, UpdateRecordInput } from '../services/RecordService';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:23: updateRecord: (id: string, input: UpdateRecordInput) => Promise<EngineeringRecord | undefined>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\store\recordStore.ts:104: updateRecord: async (id: string, input: UpdateRecordInput) => {
+
+================ RecordSearchFilters ================
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\index.ts:7: RecordSearchFilters,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:4: import { EngineeringRecord, CreateRecordInput, UpdateRecordInput, RecordSearchFilters, OwnerType, RecordStatus } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useRecords.ts:128: const search = useCallback(async (filters: RecordSearchFilters) => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:4: import { EngineeringRecord, RecordSearchFilters } from '../domain';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\repositories\RecordRepository.ts:7: async search(filters: RecordSearchFilters): Promise<EngineeringRecord[]> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:10: RecordSearchFilters,
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:21: export interface RecordSearchFilters {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:232: async advancedSearch(filters: RecordSearchFilters): Promise<EngineeringRecord[]> {
+
+================ StoredFile ================
+C:\Users\Clone\Downloads\engineeros\src\domain\files\StoredFile.ts:1: // src/domain/files/StoredFile.ts
+C:\Users\Clone\Downloads\engineeros\src\domain\files\StoredFile.ts:18: export interface StoredFile {
+C:\Users\Clone\Downloads\engineeros\src\domain\index.ts:6: export * from './files/StoredFile';
+C:\Users\Clone\Downloads\engineeros\src\domain\verify.ts:6: import { StoredFile, FileType } from './files/StoredFile';
+C:\Users\Clone\Downloads\engineeros\src\domain\verify.ts:71: const file: StoredFile = {
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:4: import { StoredFile } from '../../domain/files/StoredFile';
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:11: file?: StoredFile;
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:34: const storedFile = await this.storeFile(file, context.workspaceId);
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:51: fileId: storedFile.id,
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:88: file: storedFile,
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:103: private async storeFile(file: File, workspaceId: string): Promise<StoredFile> {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\RecordVersion.ts:7: files: StoredFile[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\domain\StoredFile.ts:1: export interface StoredFile {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:5: import { StoredFile } from '../domain/StoredFile';
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:11: uploadFile: (recordId: string, file: File) => Promise<StoredFile | null>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:12: uploadMultiple: (recordId: string, files: File[]) => Promise<StoredFile[]>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:20: const uploadFile = useCallback(async (recordId: string, file: File): Promise<StoredFile | null> => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:36: const response = await api.uploadFile<StoredFile>(/records//files, file);
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:55: const uploadMultiple = useCallback(async (recordId: string, files: File[]): Promise<StoredFile[]> => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records\hooks\useFileUpload.ts:56: const results: StoredFile[] = [];
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\index.ts:4: export * from './StoredFile';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\RecordVersion.ts:7: files: StoredFile[];
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\domain\StoredFile.ts:1: export interface StoredFile {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:5: import { StoredFile } from '../domain/StoredFile';
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:11: uploadFile: (recordId: string, file: File) => Promise<StoredFile | null>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:12: uploadMultiple: (recordId: string, files: File[]) => Promise<StoredFile[]>;
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:20: const uploadFile = useCallback(async (recordId: string, file: File): Promise<StoredFile | null> => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:36: const response = await api.uploadFile<StoredFile>(/records//files, file);
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:55: const uploadMultiple = useCallback(async (recordId: string, files: File[]): Promise<StoredFile[]> => {
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\hooks\useFileUpload.ts:56: const results: StoredFile[] = [];
+
+================ ProjectHealth ================
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectDetail.tsx:6: import { ProjectHealth } from './ProjectHealth';
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectDetail.tsx:250: <ProjectHealth
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectHealth.tsx:2: import { ProjectHealthMetrics } from '../../types';
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectHealth.tsx:4: interface ProjectHealthProps {
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectHealth.tsx:5: health: ProjectHealthMetrics;
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectHealth.tsx:8: const ProjectHealth: React.FC<ProjectHealthProps> = ({ health }) => {
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectHealth.tsx:98: export default ProjectHealth;
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:6: ProjectHealthMetrics,
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectDetail.tsx:5: import { ProjectHealth } from './ProjectHealth';
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectDetail.tsx:286: <ProjectHealth
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectHealth.tsx:2: import { ProjectHealthMetrics } from '../../types';
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectHealth.tsx:5: interface ProjectHealthProps {
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectHealth.tsx:6: health: ProjectHealthMetrics;
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectHealth.tsx:9: export const ProjectHealth: React.FC<ProjectHealthProps> = ({ health }) => {
+C:\Users\Clone\Downloads\engineeros\src\types\project.ts:1: export interface ProjectMilestone { id: string; label: string; status: "pending" | "in-progress" | "complete"; progress: number; dueDate?: string; } export interface ProjectTeam { id: string; name: string; role: string; active: boolean; avatar?: string; } export interface ProjectHealth { overall: number; schedule: number; budget: number; safety: number; quality: number; documentation: number; riskLevel: "Low" | "Medium" | "High" | "Critical"; openRFIs: number; outstandingApprovals: number; weatherImpactsDays: number; materialShortageRisk: string; resourceUtilization: number; aiRecommendations: string[]; } export interface Project { id: string; code: string; name: string; client: string; contractor: string; consultant: string; location: string; status: "In Progress" | "Design Phase" | "Inspection" | "Completed" | "Delayed"; progress: number; startDate: string; expectedCompletion: string; budget: number; spent: number; leadEngineer: string; health: ProjectHealth; milestones: ProjectMilestone[]; team: ProjectTeam[]; drawings: string[]; decisions: string[]; rfis: string[]; assets: string[]; reports: string[]; description?: string; image?: string; createdAt: string; updatedAt: string; }
+C:\Users\Clone\Downloads\engineeros\src\types\project.ts:2: export type ProjectHealthMetrics = ProjectHealth;
+
+================ projectName ================
+C:\Users\Clone\Downloads\engineeros\src\components\common\DecisionModal.tsx:50: projectName: currentProject?.name ?? '',
+C:\Users\Clone\Downloads\engineeros\src\components\knowledge\LessonsLearned.tsx:46: projectName: 'Coastal Seawall & Infra Project',
+C:\Users\Clone\Downloads\engineeros\src\components\knowledge\LessonsLearned.tsx:132: <p className="text-xs text-slate-500 dark:text-slate-400 font-mono mt-0.5">{l.projectName}</p>
+C:\Users\Clone\Downloads\engineeros\src\components\projects\DecisionLog.tsx:161: <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{d.projectName}</span>
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectDetail.tsx:50: const projectDecisions = decisions.filter((d) => d.projectId === project.id || d.projectName === project.name);
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:40: projectName: 'Grand Bay Highway Interchange & Bridge',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:59: projectName: 'Grand Bay Highway Interchange & Bridge',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:78: projectName: 'Apex Commercial Tower (42-Story)',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:99: projectName: 'Coastal Seawall & Port Expansion (Completed 2025)',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:112: projectName: 'Metro Line Tunnel Section 3',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:140: projectName: 'Grand Bay Highway Interchange & Bridge',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:177: projectName: 'Apex Commercial Tower (42-Story)',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:213: projectName: 'St. Jude Water Treatment Facility',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:317: projectName: 'Grand Bay Highway Interchange & Bridge',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:329: projectName: 'Grand Bay Highway Interchange & Bridge',
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:341: projectName: 'Grand Bay Highway Interchange & Bridge',
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectDetail.tsx:73: const projectDecisions = decisions.filter((d) => d.projectId === project.id || d.projectName === project.name);
+C:\Users\Clone\Downloads\engineeros\src\types\decision.ts:1: export interface Decision { id: string; decisionNumber: number; projectId: string; projectName: string; title: string; reason: string; requestedBy: string; reviewedBy: string; approvedBy: string; implemented: boolean; status: "Approved" | "Pending" | "Rejected" | "In Review"; affectedDrawings: string[]; relatedRFIs: string[]; relatedPhotosCount: number; date: string; impactLevel: "High" | "Medium" | "Low"; costImpact?: string; scheduleImpact?: string; category?: string; priority?: "Critical" | "High" | "Medium" | "Low"; attachments?: string[]; linkedAssets?: string[]; linkedReports?: string[]; createdAt: string; updatedAt: string; }
+
+================ fileIds ================
+C:\Users\Clone\Downloads\engineeros\src\components\projects\DrawingUploadModal.tsx:115: fileIds: ['file-' + Date.now()],
+C:\Users\Clone\Downloads\engineeros\src\domain\records\EngineeringRecord.ts:78: fileIds: string[];
+C:\Users\Clone\Downloads\engineeros\src\domain\verify.ts:56: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:172: if (recordFiles && recordFiles.fileIds.length > 0) {
+C:\Users\Clone\Downloads\engineeros\src\modules\intake\KnowledgeIntakeEngine.ts:173: return '/api/files/' + recordFiles.fileIds[0];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:31: const fileIds = record.fileIds || [];
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:48: {fileIds.length > 0 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:101: <p className="text-slate-600 dark:text-slate-400">{fileIds.length}</p>
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:21: fileIds: ['file-001'],
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:52: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:83: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records\data\sampleRecords.ts:114: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:66: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:173: fileIds: [...record.fileIds, fileId],
+C:\Users\Clone\Downloads\engineeros\src\modules\records\services\RecordService.ts:363: fileIds: [...(existing.fileIds || []), fileInfo.fileId],
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:31: const fileIds = record.fileIds || [];
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:48: {fileIds.length > 0 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:101: <p className="text-slate-600 dark:text-slate-400">{fileIds.length}</p>
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:21: fileIds: ['file-001'],
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:52: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:83: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\data\sampleRecords.ts:114: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:60: fileIds: [],
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\services\RecordService.ts:168: fileIds: [...record.fileIds, fileId],
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:165: fileIds: data.file_id ? [data.file_id] : [],
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:192: // Get file_id from fileIds array or metadata
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:195: record.fileIds?.[0] ??
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:197: record.metadata?.fileIds?.[0] ??
+
+================ record.files ================
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:53: {record.files && record.files.length > 0 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:56: <span>{record.files.length} file(s)</span>
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:61: {record.files && record.files.length > 0 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:63: {record.files.slice(0, 3).map((file) => (
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:68: {record.files.length > 3 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordCard.tsx:69: <span className="text-xs text-slate-400">+{record.files.length - 3} more</span>
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordDetail.tsx:148: fileSize={record.fileSize}
+C:\Users\Clone\Downloads\engineeros\src\modules\records\components\RecordForm.tsx:44: size: record.fileSize || 0,
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:53: {record.files && record.files.length > 0 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:56: <span>{record.files.length} file(s)</span>
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:61: {record.files && record.files.length > 0 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:63: {record.files.slice(0, 3).map((file) => (
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:68: {record.files.length > 3 && (
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordCard.tsx:69: <span className="text-xs text-slate-400">+{record.files.length - 3} more</span>
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordDetail.tsx:148: fileSize={record.fileSize}
+C:\Users\Clone\Downloads\engineeros\src\modules\records_backup\components\RecordForm.tsx:44: size: record.fileSize || 0,
+C:\Users\Clone\Downloads\engineeros\src\repositories\RecordRepository.ts:218: file_size: record.fileSize ?? record.metadata?.fileSize ?? record.metadata?.size ?? null,
+
+================ openDefectsCount ================
+C:\Users\Clone\Downloads\engineeros\src\components\projects\ProjectFormModal.tsx:75: openDefectsCount: project?.openDefectsCount || 0,
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:160: openDefectsCount: 4,
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:196: openDefectsCount: 1,
+C:\Users\Clone\Downloads\engineeros\src\data\mockData.ts:232: openDefectsCount: 7,
+C:\Users\Clone\Downloads\engineeros\src\lib\seedData.ts:21: openDefectsCount: 2,
+C:\Users\Clone\Downloads\engineeros\src\lib\seedData.ts:41: openDefectsCount: 0,
+C:\Users\Clone\Downloads\engineeros\src\lib\seedData.ts:61: openDefectsCount: 1,
+C:\Users\Clone\Downloads\engineeros\src\pages\Projects\ProjectFormModal.tsx:89: openDefectsCount: project?.openDefectsCount || 0,
+
+================ EventBus ================
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:5: import { EventBus } from '../events/EventBus';
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:36: private eventBus = EventBus.getInstance();
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:65: this.outboxService = new OutboxService(this.eventStore, this.eventBus);
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:113: await this.eventBus.emit({
+C:\Users\Clone\Downloads\engineeros\src\core\sagas\sagas\DrawingApprovalSaga.ts:4: import { EventBus } from '../../events/EventBus';
+C:\Users\Clone\Downloads\engineeros\src\core\sagas\sagas\DrawingApprovalSaga.ts:93: const eventBus = EventBus.getInstance();
+C:\Users\Clone\Downloads\engineeros\src\core\sagas\sagas\DrawingApprovalSaga.ts:94: await eventBus.emit({
+C:\Users\Clone\Downloads\engineeros\src\core\sagas\SagaCoordinator.ts:3: import { EventBus } from '../events/EventBus';
+C:\Users\Clone\Downloads\engineeros\src\core\sagas\SagaCoordinator.ts:10: private eventBus = EventBus.getInstance();
+C:\Users\Clone\Downloads\engineeros\src\core\sagas\SagaCoordinator.ts:56: await this.eventBus.emit({
+C:\Users\Clone\Downloads\engineeros\src\core\types\index.ts:28: export interface IEventBus {
+C:\Users\Clone\Downloads\engineeros\src\shared\services\EventBus.ts:1: export interface IEventBus {
+C:\Users\Clone\Downloads\engineeros\src\shared\services\EventBus.ts:15: export class EventBus implements IEventBus {
+
+================ EventStore ================
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:6: import { EventStore } from '../events/EventStore';
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:37: private eventStore = EventStore.getInstance();
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:61: enableEventStore: true,
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:65: this.outboxService = new OutboxService(this.eventStore, this.eventBus);
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:133: if (this.config.enableEventStore) {
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:134: await this.eventStore.initialize();
+C:\Users\Clone\Downloads\engineeros\src\core\projections\ProjectionEngine.ts:3: import { EventStore } from '../events/EventStore';
+C:\Users\Clone\Downloads\engineeros\src\core\projections\ProjectionEngine.ts:25: private eventStore = EventStore.getInstance();
+C:\Users\Clone\Downloads\engineeros\src\core\projections\ProjectionEngine.ts:131: const events = await this.eventStore.getUnprocessedEvents(100);
+C:\Users\Clone\Downloads\engineeros\src\core\projections\ProjectionEngine.ts:151: await this.eventStore.markProcessed(event.id as string);
+
+================ KernelConfig ================
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:30: private config: KernelConfig;
+
+================ BoundedContext ================
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:24: import { BoundedContextManager } from '../contexts/BoundedContexts';
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:54: private contextManager = BoundedContextManager.getInstance();
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:224: BoundedContext.IDENTITY,
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:225: BoundedContext.COLLABORATION,
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:226: BoundedContext.ENGINEERING,
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:227: BoundedContext.QUALITY,
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:228: BoundedContext.DOCUMENT,
+C:\Users\Clone\Downloads\engineeros\src\core\application\ApplicationKernel.ts:229: BoundedContext.COMMERCIAL,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:1: // src/core/contexts/BoundedContexts.ts
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:2: export enum BoundedContext {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:11: export interface BoundedContextDefinition {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:12: name: BoundedContext;
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:18: dependencies: BoundedContext[];
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:21: export const BOUNDED_CONTEXTS: Record<BoundedContext, BoundedContextDefinition> = {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:22: [BoundedContext.IDENTITY]: {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:23: name: BoundedContext.IDENTITY,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:31: [BoundedContext.ENGINEERING]: {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:32: name: BoundedContext.ENGINEERING,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:38: dependencies: [BoundedContext.IDENTITY, BoundedContext.COLLABORATION],
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:40: [BoundedContext.QUALITY]: {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:41: name: BoundedContext.QUALITY,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:47: dependencies: [BoundedContext.IDENTITY, BoundedContext.ENGINEERING],
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:49: [BoundedContext.DOCUMENT]: {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:50: name: BoundedContext.DOCUMENT,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:56: dependencies: [BoundedContext.IDENTITY, BoundedContext.ENGINEERING],
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:58: [BoundedContext.COMMERCIAL]: {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:59: name: BoundedContext.COMMERCIAL,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:66: BoundedContext.IDENTITY,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:67: BoundedContext.ENGINEERING
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:70: [BoundedContext.COLLABORATION]: {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:71: name: BoundedContext.COLLABORATION,
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:77: dependencies: [BoundedContext.IDENTITY],
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:81: export class BoundedContextManager {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:82: private static instance: BoundedContextManager;
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:83: private activeContexts: Set<BoundedContext> = new Set();
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:85: static getInstance(): BoundedContextManager {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:86: if (!BoundedContextManager.instance) {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:87: BoundedContextManager.instance = new BoundedContextManager();
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:89: return BoundedContextManager.instance;
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:92: activate(context: BoundedContext): void {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:97: deactivate(context: BoundedContext): void {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:102: isActive(context: BoundedContext): boolean {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:106: getActiveContexts(): BoundedContext[] {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:110: getDependencies(context: BoundedContext): BoundedContext[] {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:114: getModules(context: BoundedContext): string[] {
+C:\Users\Clone\Downloads\engineeros\src\core\contexts\BoundedContexts.ts:118: private log(action: string, context: BoundedContext): void {

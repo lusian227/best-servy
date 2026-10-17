@@ -1,0 +1,145 @@
+﻿// src/lib/localDB.ts - Clean version without recovery
+
+import Dexie, { Table } from 'dexie';
+import { EngineeringRecord } from '../modules/records/domain/EngineeringRecord';
+
+export interface SyncQueueItem {
+  id: string;
+  recordId: string;
+  action: 'create' | 'update' | 'delete';
+  data: any;
+  timestamp: Date;
+  synced: boolean;
+}
+
+export class EngineerOSDB extends Dexie {
+  records!: Table<EngineeringRecord, string>;
+  syncQueue!: Table<SyncQueueItem, string>;
+
+  constructor() {
+    super('EngineerOS');
+
+    this.version(1).stores({
+      records: 'id, projectId, title, category, status, discipline, updatedAt',
+      syncQueue: 'id, recordId, action, synced, timestamp',
+    });
+  }
+}
+
+export const db = new EngineerOSDB();
+
+// Helper functions
+export async function saveRecordOffline(record: EngineeringRecord): Promise<void> {
+  try {
+    await db.records.put(record);
+  } catch (error) {
+    console.error('Failed to save record offline:', error);
+  }
+}
+
+export async function getRecordsOffline(): Promise<EngineeringRecord[]> {
+  try {
+    return await db.records.toArray();
+  } catch (error) {
+    console.error('Failed to get records offline:', error);
+    return [];
+  }
+}
+
+export async function getRecordOffline(id: string): Promise<EngineeringRecord | undefined> {
+  try {
+    return await db.records.get(id);
+  } catch (error) {
+    console.error('Failed to get record offline:', error);
+    return undefined;
+  }
+}
+
+export async function deleteRecordOffline(id: string): Promise<void> {
+  try {
+    await db.records.delete(id);
+  } catch (error) {
+    console.error('Failed to delete record offline:', error);
+  }
+}
+
+// Sync queue functions
+export async function addToSyncQueue(
+  recordId: string,
+  action: 'create' | 'update' | 'delete',
+  data: any
+): Promise<void> {
+  try {
+    await db.syncQueue.add({
+      id: crypto.randomUUID(),
+      recordId,
+      action,
+      data,
+      timestamp: new Date(),
+      synced: false,
+    });
+  } catch (error) {
+    console.error('Failed to add to sync queue:', error);
+  }
+}
+
+export async function getPendingSync(): Promise<SyncQueueItem[]> {
+  try {
+    return await db.syncQueue.where('synced').equals(false).toArray();
+  } catch (error) {
+    console.warn('Failed to get pending sync items:', error);
+    return [];
+  }
+}
+
+export async function markAsSynced(id: string): Promise<void> {
+  try {
+    await db.syncQueue.update(id, { synced: true });
+  } catch (error) {
+    console.error('Failed to mark as synced:', error);
+  }
+}
+
+export async function clearSynced(): Promise<void> {
+  try {
+    await db.syncQueue.where('synced').equals(true).delete();
+  } catch (error) {
+    console.warn('Failed to clear synced items:', error);
+  }
+}
+
+// Check if online
+export function isOnline(): boolean {
+  return navigator.onLine;
+}
+
+// Listen to online/offline events
+export function onOnline(callback: () => void): void {
+  window.addEventListener('online', callback);
+}
+
+export function onOffline(callback: () => void): void {
+  window.addEventListener('offline', callback);
+}
+
+// Reset database function (for emergencies)
+export async function resetDatabase(): Promise<void> {
+  try {
+    await db.delete();
+    console.log('✅ Database reset successfully');
+    const newDb = new EngineerOSDB();
+    await newDb.open();
+    Object.assign(db, newDb);
+  } catch (error) {
+    console.error('Failed to reset database:', error);
+  }
+}
+
+// ⚠️ DO NOT CALL THIS - It causes errors
+// export function setupDatabaseRecovery(): void {
+//   db.on('error', (error) => {
+//     console.warn('Database error detected:', error);
+//   });
+// }
+
+// setupDatabaseRecovery(); // ❌ REMOVED - This was causing the error

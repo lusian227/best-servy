@@ -1,0 +1,77 @@
+// src/core/events/EventTypes.ts
+
+export enum EventType {
+    KERNEL_BOOTED = 'KERNEL_BOOTED',
+
+    DRAWING_CREATED = 'DRAWING_CREATED',
+    DRAWING_APPROVED = 'DRAWING_APPROVED',
+    DRAWING_PUBLISHED = 'DRAWING_PUBLISHED',
+    DRAWING_SUBMITTED_FOR_REVIEW = 'DRAWING_SUBMITTED_FOR_REVIEW',
+    DRAWING_REJECTED = 'DRAWING_REJECTED',
+    DRAWING_ARCHIVED = 'DRAWING_ARCHIVED',
+
+    PROJECT_CREATED = 'PROJECT_CREATED',
+
+    ASSET_CREATED = 'ASSET_CREATED',
+
+    FILE_UPLOADED = 'FILE_UPLOADED',
+    FILE_VERSIONED = 'FILE_VERSIONED',
+    FILE_DELETED = 'FILE_DELETED',
+
+    OCR_COMPLETED = 'OCR_COMPLETED',
+
+    USER_REGISTERED = 'USER_REGISTERED',
+    USER_LOGGED_IN = 'USER_LOGGED_IN',
+    USER_LOGGED_OUT = 'USER_LOGGED_OUT',
+
+    COMPANY_CREATED = 'COMPANY_CREATED',
+
+    COMMENT_ADDED = 'COMMENT_ADDED',
+    REACTION_ADDED = 'REACTION_ADDED',
+    PRESENCE_UPDATED = 'PRESENCE_UPDATED',
+
+    RFI_CREATED = 'RFI_CREATED',
+    RFI_ANSWERED = 'RFI_ANSWERED',
+
+    NCR_RAISED = 'NCR_RAISED',
+
+    SUBMITTAL_APPROVED = 'SUBMITTAL_APPROVED',
+
+    CONTRACT_SIGNED = 'CONTRACT_SIGNED',
+
+    PAYMENT_APPROVED = 'PAYMENT_APPROVED',
+
+    VARIATION_APPROVED = 'VARIATION_APPROVED',
+
+    SAGA_STEP_COMPLETED = 'SAGA_STEP_COMPLETED',
+
+    NOTIFICATION_SENT = 'NOTIFICATION_SENT',
+
+    CUSTOM = 'CUSTOM',
+}
+
+
+export interface Event<TPayload = unknown> {
+    id?: string;
+
+    type: EventType;
+
+    payload: TPayload;
+
+    timestamp: number;
+
+    userId?: string;       // ✅ Optional
+
+    companyId?: string;  // ← REQUIRED
+
+    aggregateId?: string;
+
+    aggregateType?: string;
+
+    version?: number;
+
+    metadata?: Record<string, unknown>;
+
+
+
+}

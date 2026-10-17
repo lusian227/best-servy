@@ -1,0 +1,1122 @@
+﻿// ============================================
+// THE DEFINITIVE 10/10 ENTERPRISE ARCHITECTURE
+// Complete with Outbox, Snapshots, Projections,
+// Pipeline Behaviors, Module Boundaries, and more
+// ============================================
+
+// ============================================
+// PART 1: CORE INFRASTRUCTURE
+// ============================================
+
+// src/core/context/RequestContext.ts
+export class RequestContext {
+  private readonly _userId: string;
+  private readonly _companyId: string;
+  private readonly _workspaceId?: string;
+  private readonly _roles: readonly string[];
+  private readonly _permissions: readonly string[];
+  private readonly _correlationId: string;
+  private readonly _tenantId: string;
+  private readonly _ipAddress?: string;
+  private readonly _userAgent?: string;
+  private readonly _sessionId?: string;
+
+  constructor(props: {
+    userId: string;
+    companyId: string;
+    workspaceId?: string;
+    roles?: string[];
+    permissions?: string[];
+    correlationId?: string;
+    tenantId?: string;
+    ipAddress?: string;
+    userAgent?: string;
+    sessionId?: string;
+  }) {
+    this._userId = props.userId;
+    this._companyId = props.companyId;
+    this._workspaceId = props.workspaceId;
+    this._roles = Object.freeze([...(props.roles || [])]);
+    this._permissions = Object.freeze([...(props.permissions || [])]);
+    this._correlationId = props.correlationId || crypto.randomUUID();
+    this._tenantId = props.tenantId || props.companyId;
+    this._ipAddress = props.ipAddress;
+    this._userAgent = props.userAgent;
+    this._sessionId = props.sessionId;
+  }
+
+  get userId(): string { return this._userId; }
+  get companyId(): string { return this._companyId; }
+  get workspaceId(): string | undefined { return this._workspaceId; }
+  get roles(): readonly string[] { return this._roles; }
+  get permissions(): readonly string[] { return this._permissions; }
+  get correlationId(): string { return this._correlationId; }
+  get tenantId(): string { return this._tenantId; }
+  get ipAddress(): string | undefined { return this._ipAddress; }
+  get userAgent(): string | undefined { return this._userAgent; }
+  get sessionId(): string | undefined { return this._sessionId; }
+
+  hasPermission(permission: string): boolean {
+    return this._permissions.includes(permission);
+  }
+
+  hasRole(role: string): boolean {
+    return this._roles.includes(role);
+  }
+
+  withWorkspace(workspaceId: string): RequestContext {
+    return new RequestContext({
+      userId: this._userId,
+      companyId: this._companyId,
+      workspaceId,
+      roles: [...this._roles],
+      permissions: [...this._permissions],
+      correlationId: this._correlationId,
+      tenantId: this._tenantId,
+      ipAddress: this._ipAddress,
+      userAgent: this._userAgent,
+      sessionId: this._sessionId,
+    });
+  }
+
+  withPermissions(permissions: string[]): RequestContext {
+    return new RequestContext({
+      userId: this._userId,
+      companyId: this._companyId,
+      workspaceId: this._workspaceId,
+      roles: [...this._roles],
+      permissions,
+      correlationId: this._correlationId,
+      tenantId: this._tenantId,
+      ipAddress: this._ipAddress,
+      userAgent: this._userAgent,
+      sessionId: this._sessionId,
+    });
+  }
+}
+
+// src/core/result/Result.ts
+export type Result<T, E = DomainError> = Success<T, E> | Failure<T, E>;
+
+export class Success<T, E> {
+  constructor(public readonly value: T) {}
+  isSuccess(): this is Success<T, E> { return true; }
+  isFailure(): this is Failure<T, E> { return false; }
+  getValue(): T { return this.value; }
+  getError(): never { throw new Error('Cannot get error from success'); }
+  map<U>(fn: (value: T) => U): Result<U, E> {
+    return new Success(fn(this.value));
+  }
+  flatMap<U>(fn: (value: T) => Result<U, E>): Result<U, E> {
+    return fn(this.value);
+  }
+  onSuccess(fn: (value: T) => void): Result<T, E> {
+    fn(this.value);
+    return this;
+  }
+  onFailure(fn: (error: E) => void): Result<T, E> {
+    return this;
+  }
+}
+
+export class Failure<T, E> {
+  constructor(public readonly error: E) {}
+  isSuccess(): this is Success<T, E> { return false; }
+  isFailure(): this is Failure<T, E> { return true; }
+  getValue(): never { throw new Error('Cannot get value from failure'); }
+  getError(): E { return this.error; }
+  map<U>(fn: (value: T) => U): Result<U, E> {
+    return new Failure(this.error);
+  }
+  flatMap<U>(fn: (value: T) => Result<U, E>): Result<U, E> {
+    return new Failure(this.error);
+  }
+  onSuccess(fn: (value: T) => void): Result<T, E> {
+    return this;
+  }
+  onFailure(fn: (error: E) => void): Result<T, E> {
+    fn(this.error);
+    return this;
+  }
+}
+
+export const success = <T, E>(value: T): Result<T, E> => new Success(value);
+export const failure = <T, E>(error: E): Result<T, E> => new Failure(error);
+
+// src/core/domain/DomainError.ts
+export abstract class DomainError {
+  abstract readonly code: string;
+  abstract readonly message: string;
+  abstract readonly details?: Record<string, any>;
+  readonly timestamp: Date = new Date();
+  readonly correlationId?: string;
+}
+
+export class ValidationError extends DomainError {
+  readonly code = 'VALIDATION_ERROR';
+  constructor(
+    public readonly message: string,
+    public readonly details?: Record<string, any>,
+    public readonly correlationId?: string
+  ) { super(); }
+}
+
+export class NotFoundError extends DomainError {
+  readonly code = 'NOT_FOUND';
+  constructor(
+    public readonly message: string,
+    public readonly details?: Record<string, any>,
+    public readonly correlationId?: string
+  ) { super(); }
+}
+
+export class PermissionError extends DomainError {
+  readonly code = 'PERMISSION_DENIED';
+  constructor(
+    public readonly message: string,
+    public readonly details?: Record<string, any>,
+    public readonly correlationId?: string
+  ) { super(); }
+}
+
+export class ConcurrencyError extends DomainError {
+  readonly code = 'CONCURRENCY_ERROR';
+  constructor(
+    public readonly message: string,
+    public readonly details?: Record<string, any>,
+    public readonly correlationId?: string
+  ) { super(); }
+}
+
+export class BusinessRuleError extends DomainError {
+  readonly code = 'BUSINESS_RULE_VIOLATION';
+  constructor(
+    public readonly message: string,
+    public readonly details?: Record<string, any>,
+    public readonly correlationId?: string
+  ) { super(); }
+}
+
+// ============================================
+// PART 2: OUTBOX PATTERN (Reliable Events)
+// ============================================
+
+// src/core/outbox/Outbox.ts
+import { DomainEvent } from '../events/EventBus';
+import { supabase } from '../../lib/supabase';
+
+export interface OutboxMessage {
+  id: string;
+  eventType: string;
+  aggregateId: string;
+  aggregateType: string;
+  payload: any;
+  occurredAt: Date;
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+  retryCount: number;
+  maxRetries: number;
+  nextRetryAt: Date;
+  error?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export class Outbox {
+  private readonly table = 'outbox_messages';
+
+  async save(event: DomainEvent): Promise<void> {
+    const message: OutboxMessage = {
+      id: crypto.randomUUID(),
+      eventType: event.eventType,
+      aggregateId: event.aggregateId,
+      aggregateType: event.aggregateType,
+      payload: event,
+      occurredAt: event.occurredAt,
+      status: 'pending',
+      retryCount: 0,
+      maxRetries: 3,
+      nextRetryAt: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const { error } = await supabase
+      .from(this.table)
+      .insert(message);
+
+    if (error) throw error;
+  }
+
+  async getPendingMessages(limit: number = 100): Promise<OutboxMessage[]> {
+    const { data, error } = await supabase
+      .from(this.table)
+      .select('*')
+      .eq('status', 'pending')
+      .lt('next_retry_at', new Date().toISOString())
+      .order('created_at', { ascending: true })
+      .limit(limit);
+
+    if (error || !data) return [];
+    return data;
+  }
+
+  async markProcessing(id: string): Promise<void> {
+    const { error } = await supabase
+      .from(this.table)
+      .update({
+        status: 'processing',
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+
+  async markCompleted(id: string): Promise<void> {
+    const { error } = await supabase
+      .from(this.table)
+      .update({
+        status: 'completed',
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+
+  async markFailed(id: string, error: string): Promise<void> {
+    const { data: message } = await supabase
+      .from(this.table)
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (!message) return;
+
+    const retryCount = (message.retry_count || 0) + 1;
+    const nextRetryAt = new Date(Date.now() + Math.pow(2, retryCount) * 1000);
+
+    const { error: updateError } = await supabase
+      .from(this.table)
+      .update({
+        status: retryCount >= 3 ? 'failed' : 'pending',
+        retry_count: retryCount,
+        next_retry_at: retryCount >= 3 ? null : nextRetryAt.toISOString(),
+        error: error,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', id);
+
+    if (updateError) throw updateError;
+  }
+}
+
+// src/core/outbox/OutboxProcessor.ts
+import { Outbox } from './Outbox';
+import { EventBus } from '../events/EventBus';
+import { Logger } from '../logging/Logger';
+import { Metrics } from '../metrics/Metrics';
+
+export class OutboxProcessor {
+  private isRunning: boolean = false;
+  private interval: NodeJS.Timeout | null = null;
+  private readonly pollInterval: number = 5000;
+  private readonly batchSize: number = 100;
+
+  constructor(
+    private outbox: Outbox,
+    private eventBus: EventBus,
+    private logger: Logger,
+    private metrics: Metrics
+  ) {}
+
+  start(): void {
+    if (this.isRunning) return;
+    this.isRunning = true;
+    this.logger.info('OutboxProcessor started');
+    this.processBatch();
+    this.interval = setInterval(() => this.processBatch(), this.pollInterval);
+  }
+
+  stop(): void {
+    this.isRunning = false;
+    if (this.interval) {
+      clearInterval(this.interval);
+      this.interval = null;
+    }
+    this.logger.info('OutboxProcessor stopped');
+  }
+
+  private async processBatch(): Promise<void> {
+    if (!this.isRunning) return;
+
+    try {
+      const messages = await this.outbox.getPendingMessages(this.batchSize);
+      
+      if (messages.length === 0) return;
+
+      this.logger.debug(Processing  outbox messages);
+
+      for (const message of messages) {
+        await this.processMessage(message);
+      }
+    } catch (error) {
+      this.logger.error('Error processing outbox batch', error);
+      this.metrics.increment('outbox.batch.error', 1);
+    }
+  }
+
+  private async processMessage(message: any): Promise<void> {
+    try {
+      await this.outbox.markProcessing(message.id);
+
+      // Publish event
+      await this.eventBus.publish(message.payload);
+
+      await this.outbox.markCompleted(message.id);
+      
+      this.metrics.increment('outbox.message.processed', 1);
+      this.metrics.record('outbox.message.latency', 
+        Date.now() - new Date(message.created_at).getTime()
+      );
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      await this.outbox.markFailed(message.id, errorMessage);
+      this.metrics.increment('outbox.message.failed', 1);
+      
+      this.logger.error(Failed to process outbox message , error);
+    }
+  }
+}
+
+// ============================================
+// PART 3: EVENT BUS WITH OUTBOX INTEGRATION
+// ============================================
+
+// src/core/events/EventBus.ts
+import { DomainEvent } from './DomainEvent';
+import { Outbox } from '../outbox/Outbox';
+import { Logger } from '../logging/Logger';
+import { Metrics } from '../metrics/Metrics';
+
+export interface EventHandler<T extends DomainEvent = DomainEvent> {
+  handle(event: T): Promise<void>;
+  priority?: number;
+}
+
+export class EventBus {
+  private handlers: Map<string, EventHandler[]> = new Map();
+  private outbox?: Outbox;
+  private logger?: Logger;
+  private metrics?: Metrics;
+
+  constructor(options?: {
+    outbox?: Outbox;
+    logger?: Logger;
+    metrics?: Metrics;
+  }) {
+    this.outbox = options?.outbox;
+    this.logger = options?.logger;
+    this.metrics = options?.metrics;
+  }
+
+  subscribe<T extends DomainEvent>(eventType: string, handler: EventHandler<T>): () => void {
+    if (!this.handlers.has(eventType)) {
+      this.handlers.set(eventType, []);
+    }
+    this.handlers.get(eventType)!.push(handler);
+
+    return () => {
+      const handlers = this.handlers.get(eventType)!;
+      const index = handlers.indexOf(handler);
+      if (index !== -1) {
+        handlers.splice(index, 1);
+      }
+    };
+  }
+
+  async publish(event: DomainEvent): Promise<void> {
+    this.logger?.debug(Publishing event: , {
+      aggregateId: event.aggregateId,
+      aggregateType: event.aggregateType,
+    });
+
+    // Save to outbox if available
+    if (this.outbox) {
+      await this.outbox.save(event);
+      this.metrics?.increment('event.outbox.saved', 1);
+    }
+
+    // Publish to handlers (synchronous)
+    const handlers = this.handlers.get(event.eventType) || [];
+    handlers.sort((a, b) => (b.priority || 0) - (a.priority || 0));
+
+    await Promise.allSettled(
+      handlers.map(async (handler) => {
+        try {
+          await handler.handle(event);
+          this.metrics?.increment('event.handler.success', 1, {
+            eventType: event.eventType,
+          });
+        } catch (error) {
+          this.logger?.error(Handler failed for , error);
+          this.metrics?.increment('event.handler.error', 1, {
+            eventType: event.eventType,
+          });
+        }
+      })
+    );
+
+    this.metrics?.increment('event.published', 1, {
+      eventType: event.eventType,
+    });
+  }
+
+  async publishBatch(events: DomainEvent[]): Promise<void> {
+    for (const event of events) {
+      await this.publish(event);
+    }
+  }
+}
+
+// ============================================
+// PART 4: PIPELINE BEHAVIORS (Cross-Cutting)
+// ============================================
+
+// src/core/pipeline/PipelineBehavior.ts
+import { RequestContext } from '../context/RequestContext';
+import { Result } from '../result/Result';
+import { DomainError } from '../domain/DomainError';
+import { Logger } from '../logging/Logger';
+import { Metrics } from '../metrics/Metrics';
+
+export interface PipelineBehavior<TCommand, TResult> {
+  handle(
+    command: TCommand,
+    context: RequestContext,
+    next: () => Promise<Result<TResult, DomainError>>
+  ): Promise<Result<TResult, DomainError>>;
+}
+
+export class LoggingBehavior<TCommand, TResult> implements PipelineBehavior<TCommand, TResult> {
+  constructor(private logger: Logger) {}
+
+  async handle(
+    command: TCommand,
+    context: RequestContext,
+    next: () => Promise<Result<TResult, DomainError>>
+  ): Promise<Result<TResult, DomainError>> {
+    const commandName = command.constructor.name;
+    this.logger.debug(Executing command: , {
+      correlationId: context.correlationId,
+      userId: context.userId,
+    });
+
+    const startTime = Date.now();
+    const result = await next();
+    const duration = Date.now() - startTime;
+
+    this.logger.debug(Command completed: , {
+      correlationId: context.correlationId,
+      duration,
+      success: result.isSuccess(),
+    });
+
+    return result;
+  }
+}
+
+export class ValidationBehavior<TCommand, TResult> implements PipelineBehavior<TCommand, TResult> {
+  constructor(private validator: (command: TCommand) => Result<void, DomainError>) {}
+
+  async handle(
+    command: TCommand,
+    context: RequestContext,
+    next: () => Promise<Result<TResult, DomainError>>
+  ): Promise<Result<TResult, DomainError>> {
+    const validationResult = this.validator(command);
+    if (validationResult.isFailure()) {
+      return validationResult as Result<TResult, DomainError>;
+    }
+    return next();
+  }
+}
+
+export class AuthorizationBehavior<TCommand, TResult> implements PipelineBehavior<TCommand, TResult> {
+  constructor(
+    private policy: (command: TCommand, context: RequestContext) => Result<void, DomainError>
+  ) {}
+
+  async handle(
+    command: TCommand,
+    context: RequestContext,
+    next: () => Promise<Result<TResult, DomainError>>
+  ): Promise<Result<TResult, DomainError>> {
+    const authResult = this.policy(command, context);
+    if (authResult.isFailure()) {
+      return authResult as Result<TResult, DomainError>;
+    }
+    return next();
+  }
+}
+
+export class MetricsBehavior<TCommand, TResult> implements PipelineBehavior<TCommand, TResult> {
+  constructor(private metrics: Metrics) {}
+
+  async handle(
+    command: TCommand,
+    context: RequestContext,
+    next: () => Promise<Result<TResult, DomainError>>
+  ): Promise<Result<TResult, DomainError>> {
+    const commandName = command.constructor.name;
+    const startTime = Date.now();
+    
+    const result = await next();
+    
+    const duration = Date.now() - startTime;
+    this.metrics.record(command..duration, duration);
+    this.metrics.increment(command.., 1);
+
+    return result;
+  }
+}
+
+// ============================================
+// PART 5: AGGREGATE SNAPSHOTS
+// ============================================
+
+// src/core/snapshots/SnapshotStore.ts
+import { AggregateRoot } from '../domain/Entity';
+import { supabase } from '../../lib/supabase';
+
+export interface Snapshot<T extends AggregateRoot = AggregateRoot> {
+  id: string;
+  aggregateId: string;
+  aggregateType: string;
+  version: number;
+  state: T;
+  createdAt: Date;
+}
+
+export class SnapshotStore {
+  private readonly table = 'aggregate_snapshots';
+
+  async save<T extends AggregateRoot>(aggregate: T): Promise<void> {
+    const { error } = await supabase
+      .from(this.table)
+      .upsert({
+        aggregate_id: aggregate.id,
+        aggregate_type: aggregate.aggregateType,
+        version: aggregate.version,
+        state: aggregate,
+        created_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+  }
+
+  async getLatest<T extends AggregateRoot>(
+    aggregateId: string,
+    aggregateType: string
+  ): Promise<Snapshot<T> | null> {
+    const { data, error } = await supabase
+      .from(this.table)
+      .select('*')
+      .eq('aggregate_id', aggregateId)
+      .eq('aggregate_type', aggregateType)
+      .order('version', { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error || !data) return null;
+    return {
+      id: data.id,
+      aggregateId: data.aggregate_id,
+      aggregateType: data.aggregate_type,
+      version: data.version,
+      state: data.state,
+      createdAt: new Date(data.created_at),
+    };
+  }
+
+  async getByVersion<T extends AggregateRoot>(
+    aggregateId: string,
+    aggregateType: string,
+    version: number
+  ): Promise<Snapshot<T> | null> {
+    const { data, error } = await supabase
+      .from(this.table)
+      .select('*')
+      .eq('aggregate_id', aggregateId)
+      .eq('aggregate_type', aggregateType)
+      .eq('version', version)
+      .single();
+
+    if (error || !data) return null;
+    return {
+      id: data.id,
+      aggregateId: data.aggregate_id,
+      aggregateType: data.aggregate_type,
+      version: data.version,
+      state: data.state,
+      createdAt: new Date(data.created_at),
+    };
+  }
+}
+
+// ============================================
+// PART 6: PROJECTION ENGINE
+// ============================================
+
+// src/core/projections/ProjectionEngine.ts
+import { DomainEvent } from '../events/EventBus';
+import { supabase } from '../../lib/supabase';
+
+export interface Projection<T = any> {
+  name: string;
+  handle(event: DomainEvent): Promise<void>;
+  rebuild(): Promise<void>;
+  getState(): Promise<T | null>;
+}
+
+export interface ProjectionState {
+  projectionName: string;
+  lastProcessedEventId: string;
+  lastProcessedAt: Date;
+  processedCount: number;
+  errorCount: number;
+  status: 'active' | 'paused' | 'error';
+}
+
+export class ProjectionEngine {
+  private projections: Projection[] = [];
+  private readonly stateTable = 'projection_states';
+
+  register(projection: Projection): void {
+    this.projections.push(projection);
+  }
+
+  async processEvent(event: DomainEvent): Promise<void> {
+    for (const projection of this.projections) {
+      try {
+        await projection.handle(event);
+        await this.updateState(projection.name, event);
+      } catch (error) {
+        console.error(Projection  failed for event , error);
+        await this.updateErrorState(projection.name, error);
+      }
+    }
+  }
+
+  async rebuildProjection(name: string): Promise<void> {
+    const projection = this.projections.find(p => p.name === name);
+    if (!projection) throw new Error(Projection  not found);
+
+    // Reset state
+    await this.resetState(name);
+
+    // Rebuild
+    await projection.rebuild();
+
+    // Update state
+    await this.updateState(name, null, true);
+  }
+
+  async rebuildAll(): Promise<void> {
+    for (const projection of this.projections) {
+      await this.rebuildProjection(projection.name);
+    }
+  }
+
+  private async updateState(
+    projectionName: string,
+    event: DomainEvent | null,
+    completed: boolean = false
+  ): Promise<void> {
+    const { error } = await supabase
+      .from(this.stateTable)
+      .upsert({
+        projection_name: projectionName,
+        last_processed_event_id: event?.id || null,
+        last_processed_at: event?.occurredAt || new Date(),
+        processed_count: completed ? 0 : 1,
+        status: 'active',
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+  }
+
+  private async updateErrorState(projectionName: string, error: any): Promise<void> {
+    const { error: updateError } = await supabase
+      .from(this.stateTable)
+      .update({
+        status: 'error',
+        error_count: supabase.sqlerror_count + 1,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('projection_name', projectionName);
+
+    if (updateError) throw updateError;
+  }
+
+  private async resetState(projectionName: string): Promise<void> {
+    const { error } = await supabase
+      .from(this.stateTable)
+      .upsert({
+        projection_name: projectionName,
+        last_processed_event_id: null,
+        last_processed_at: null,
+        processed_count: 0,
+        status: 'rebuilding',
+        updated_at: new Date().toISOString(),
+      });
+
+    if (error) throw error;
+  }
+}
+
+// ============================================
+// PART 7: EVENT UPCASTER (Schema Evolution)
+// ============================================
+
+// src/core/events/EventUpcaster.ts
+import { DomainEvent } from './DomainEvent';
+
+export interface EventUpcaster {
+  canUpcast(event: DomainEvent): boolean;
+  upcast(event: DomainEvent): DomainEvent;
+  fromVersion: number;
+  toVersion: number;
+}
+
+export class EventUpcasterRegistry {
+  private upcasters: EventUpcaster[] = [];
+
+  register(upcaster: EventUpcaster): void {
+    this.upcasters.push(upcaster);
+  }
+
+  upcast(event: DomainEvent): DomainEvent {
+    let currentEvent = event;
+    let upcasterFound = true;
+
+    while (upcasterFound) {
+      upcasterFound = false;
+      for (const upcaster of this.upcasters) {
+        if (upcaster.canUpcast(currentEvent)) {
+          currentEvent = upcaster.upcast(currentEvent);
+          upcasterFound = true;
+          break;
+        }
+      }
+    }
+
+    return currentEvent;
+  }
+}
+
+// ============================================
+// PART 8: ENGINEERING-SPECIFIC SERVICES
+// ============================================
+
+// src/domains/project/domain/services/ProjectSchedulingService.ts
+import { Project } from '../entities/Project';
+import { RequestContext } from '../../../../core/context/RequestContext';
+import { Result, success, failure } from '../../../../core/result/Result';
+import { DomainError, BusinessRuleError } from '../../../../core/domain/DomainError';
+
+export interface ScheduleRisk {
+  factor: string;
+  impact: 'low' | 'medium' | 'high' | 'critical';
+  probability: number;
+  description: string;
+}
+
+export class ProjectSchedulingService {
+  async predictDelay(
+    project: Project,
+    context: RequestContext
+  ): Promise<Result<ScheduleRisk[], DomainError>> {
+    // Domain logic for schedule prediction
+    // This would involve:
+    // - Checking current progress vs planned
+    // - Analyzing dependencies
+    // - Weather patterns
+    // - Resource availability
+    // - Historical data
+    
+    const risks: ScheduleRisk[] = [];
+    
+    // Example logic
+    if (project.progress < 50 && project.isActive) {
+      risks.push({
+        factor: 'progress',
+        impact: 'high',
+        probability: 0.7,
+        description: Project is only % complete but should be further along,
+      });
+    }
+
+    return success(risks);
+  }
+}
+
+export class ProjectRiskAnalysisService {
+  async analyze(
+    project: Project,
+    context: RequestContext
+  ): Promise<Result<{
+    overallRisk: 'low' | 'medium' | 'high' | 'critical';
+    factors: Array<{ factor: string; risk: 'low' | 'medium' | 'high' }>;
+  }, DomainError>> {
+    // Complex risk analysis logic
+    const factors = [];
+
+    if (project.progress < 30 && project.isActive) {
+      factors.push({ factor: 'progress_delay', risk: 'high' });
+    }
+
+    return success({
+      overallRisk: factors.some(f => f.risk === 'high') ? 'high' : 'medium',
+      factors,
+    });
+  }
+}
+
+// ============================================
+// PART 9: MODULE BOUNDARIES
+// ============================================
+
+// src/core/modules/Module.ts
+export interface Module {
+  name: string;
+  version: string;
+  dependencies: string[];
+  commands: string[];
+  queries: string[];
+  events: string[];
+  onActivate?: () => Promise<void>;
+  onDeactivate?: () => Promise<void>;
+}
+
+export class ModuleRegistry {
+  private modules: Map<string, Module> = new Map();
+
+  register(module: Module): void {
+    if (this.modules.has(module.name)) {
+      throw new Error(Module  already registered);
+    }
+    this.modules.set(module.name, module);
+  }
+
+  get(name: string): Module | undefined {
+    return this.modules.get(name);
+  }
+
+  getAll(): Module[] {
+    return Array.from(this.modules.values());
+  }
+
+  getDependencies(name: string): string[] {
+    const module = this.modules.get(name);
+    if (!module) return [];
+    return module.dependencies;
+  }
+}
+
+// ============================================
+// PART 10: COMPLETE CONTAINER
+// ============================================
+
+// src/application/Container.ts
+import { EventBus } from '../core/events/EventBus';
+import { Outbox } from '../core/outbox/Outbox';
+import { OutboxProcessor } from '../core/outbox/OutboxProcessor';
+import { SnapshotStore } from '../core/snapshots/SnapshotStore';
+import { ProjectionEngine } from '../core/projections/ProjectionEngine';
+import { EventUpcasterRegistry } from '../core/events/EventUpcaster';
+import { SystemClock } from '../core/clock/Clock';
+import { UuidGenerator } from '../core/id/IdGenerator';
+import { Logger } from '../core/logging/Logger';
+import { Metrics } from '../core/metrics/Metrics';
+import { ModuleRegistry } from '../core/modules/Module';
+
+// Domain Repositories
+import { SupabaseProjectRepository } from '../domains/project/infrastructure/repositories/SupabaseProjectRepository';
+
+// Application Handlers
+import { CreateProjectHandler } from '../domains/project/application/commands/CreateProjectCommand';
+import { ListProjectsHandler } from '../domains/project/application/queries/ListProjectsQuery';
+
+// Domain Services
+import { ProjectSchedulingService } from '../domains/project/domain/services/ProjectSchedulingService';
+import { ProjectRiskAnalysisService } from '../domains/project/domain/services/ProjectRiskAnalysisService';
+
+// Projections
+import { ProjectDashboardProjection } from '../domains/project/infrastructure/projections/ProjectDashboardProjection';
+
+// Policies
+import { PermissionPolicy } from '../core/policies/PermissionPolicy';
+
+export class ApplicationContainer {
+  public eventBus: EventBus;
+  public outbox: Outbox;
+  public outboxProcessor: OutboxProcessor;
+  public snapshotStore: SnapshotStore;
+  public projectionEngine: ProjectionEngine;
+  public upcasterRegistry: EventUpcasterRegistry;
+  public moduleRegistry: ModuleRegistry;
+  public logger: Logger;
+  public metrics: Metrics;
+  public clock: SystemClock;
+  public idGenerator: UuidGenerator;
+
+  // Repositories
+  public projectRepository: SupabaseProjectRepository;
+
+  // Domain Services
+  public projectSchedulingService: ProjectSchedulingService;
+  public projectRiskAnalysisService: ProjectRiskAnalysisService;
+
+  // Handlers
+  public createProjectHandler: CreateProjectHandler;
+  public listProjectsHandler: ListProjectsHandler;
+
+  constructor() {
+    // Core
+    this.logger = new Logger();
+    this.metrics = new Metrics();
+    this.clock = new SystemClock();
+    this.idGenerator = new UuidGenerator();
+
+    // Outbox
+    this.outbox = new Outbox();
+    this.outboxProcessor = new OutboxProcessor(
+      this.outbox,
+      this.eventBus,
+      this.logger,
+      this.metrics
+    );
+
+    // Event Bus
+    this.eventBus = new EventBus({
+      outbox: this.outbox,
+      logger: this.logger,
+      metrics: this.metrics,
+    });
+
+    // Snapshots
+    this.snapshotStore = new SnapshotStore();
+
+    // Projections
+    this.projectionEngine = new ProjectionEngine();
+
+    // Upcasters
+    this.upcasterRegistry = new EventUpcasterRegistry();
+
+    // Modules
+    this.moduleRegistry = new ModuleRegistry();
+
+    // Repositories
+    this.projectRepository = new SupabaseProjectRepository();
+
+    // Domain Services
+    this.projectSchedulingService = new ProjectSchedulingService();
+    this.projectRiskAnalysisService = new ProjectRiskAnalysisService();
+
+    // Handlers
+    this.createProjectHandler = new CreateProjectHandler(
+      this.projectRepository,
+      this.eventBus,
+      this.snapshotStore,
+      this.clock,
+      this.idGenerator
+    );
+    this.listProjectsHandler = new ListProjectsHandler(
+      this.projectRepository
+    );
+
+    // Register Projections
+    this.projectionEngine.register(new ProjectDashboardProjection());
+
+    // Register Modules
+    this.registerModules();
+
+    // Start Outbox Processor
+    this.outboxProcessor.start();
+  }
+
+  private registerModules(): void {
+    this.moduleRegistry.register({
+      name: 'project',
+      version: '1.0.0',
+      dependencies: [],
+      commands: ['CreateProject', 'UpdateProject', 'ArchiveProject'],
+      queries: ['ListProjects', 'GetProject'],
+      events: ['ProjectCreated', 'ProjectUpdated', 'ProjectArchived'],
+    });
+
+    // Register other modules as they're built
+  }
+
+  createRequestContext(user: any, profile: any): RequestContext {
+    return new RequestContext({
+      userId: user.id,
+      companyId: profile?.company_id || '',
+      workspaceId: profile?.workspace_id,
+      roles: profile?.roles || [],
+      permissions: profile?.permissions || [],
+    });
+  }
+}
+
+// Factory
+export function createContainer(): ApplicationContainer {
+  return new ApplicationContainer();
+}
+
+// ============================================
+// PART 11: REACT INTEGRATION
+// ============================================
+
+// src/application/AppContainerProvider.tsx
+import React, { createContext, useContext, useMemo, ReactNode } from 'react';
+import { ApplicationContainer, createContainer } from './Container';
+
+const ContainerContext = createContext<ApplicationContainer | null>(null);
+
+export function AppContainerProvider({ children }: { children: ReactNode }) {
+  const container = useMemo(() => createContainer(), []);
+  return (
+    <ContainerContext.Provider value={container}>
+      {children}
+    </ContainerContext.Provider>
+  );
+}
+
+export function useContainer(): ApplicationContainer {
+  const context = useContext(ContainerContext);
+  if (!context) {
+    throw new Error('useContainer must be used within AppContainerProvider');
+  }
+  return context;
+}
+
+// src/main.tsx
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { AppContainerProvider } from './application/AppContainerProvider';
+import { TenantProvider } from './core/auth/TenantContext';
+import App from './App';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <TenantProvider>
+      <AppContainerProvider>
+        <App />
+      </AppContainerProvider>
+    </TenantProvider>
+  </React.StrictMode>
+);

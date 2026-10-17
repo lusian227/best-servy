@@ -1,0 +1,262 @@
+﻿// src/repositories/RecordRepository.ts - FIXED
+
+import { EngineeringRecord } from '../modules/records/domain/EngineeringRecord';
+import { sampleRecords } from '../modules/records/data/sampleRecords';
+import { IRepository } from './IRepository';
+import { supabase } from '../lib/supabase';
+import {
+  db,
+  saveRecordOffline,
+  getRecordsOffline,
+  getRecordOffline,
+  deleteRecordOffline,
+  addToSyncQueue,
+  getPendingSync,
+  markAsSynced,
+  isOnline,
+} from '../lib/localDB';
+
+export class RecordRepository implements IRepository<EngineeringRecord> {
+  private records: EngineeringRecord[] = [...sampleRecords];
+  private useSupabase: boolean = import.meta.env.VITE_USE_SUPABASE === 'true';
+  private isSyncing: boolean = false;
+
+  async findAll(): Promise<EngineeringRecord[]> {
+    if (isOnline() && this.useSupabase) {
+      try {
+        const { data, error } = await supabase
+          .from('records')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (!error && data && data.length > 0) {
+          const records = data.map(this.mapFromSupabase);
+          for (const record of records) {
+            await saveRecordOffline(record);
+          }
+          return records;
+        }
+      } catch (error) {
+        console.warn('Supabase fetch failed, falling back to offline:', error);
+      }
+    }
+
+    const offlineRecords = await getRecordsOffline();
+    if (offlineRecords.length > 0) {
+      return offlineRecords;
+    }
+
+    return this.records;
+  }
+
+  async findById(id: string): Promise<EngineeringRecord | undefined> {
+    if (isOnline() && this.useSupabase) {
+      try {
+        const { data, error } = await supabase
+          .from('records')
+          .select('*')
+          .eq('id', id)
+          .single();
+
+        if (!error && data) {
+          const record = this.mapFromSupabase(data);
+          await saveRecordOffline(record);
+          return record;
+        }
+      } catch (error) {
+        console.warn('Supabase fetch failed, falling back to offline:', error);
+      }
+    }
+
+    return await getRecordOffline(id);
+  }
+
+  async save(record: EngineeringRecord): Promise<EngineeringRecord[]> {
+    await saveRecordOffline(record);
+
+    if (isOnline() && this.useSupabase) {
+      try {
+        const supabaseRecord = this.mapToSupabase(record);
+        const { error } = await supabase
+          .from('records')
+          .upsert(supabaseRecord, { onConflict: 'id' });
+
+        if (error) {
+          console.warn('Supabase save failed, queued for sync:', error);
+          await addToSyncQueue(record.id, 'update', record);
+        } else {
+          const pending = await getPendingSync();
+          const syncedItem = pending.find(p => p.recordId === record.id);
+          if (syncedItem) {
+            await markAsSynced(syncedItem.id);
+          }
+        }
+      } catch (error) {
+        console.warn('Supabase save failed, queued for sync:', error);
+        await addToSyncQueue(record.id, 'update', record);
+      }
+    } else {
+      await addToSyncQueue(record.id, 'update', record);
+    }
+
+    return await this.findAll();
+  }
+
+  async delete(id: string): Promise<EngineeringRecord[]> {
+    await deleteRecordOffline(id);
+
+    if (isOnline() && this.useSupabase) {
+      try {
+        const { error } = await supabase
+          .from('records')
+          .delete()
+          .eq('id', id);
+
+        if (error) {
+          console.warn('Supabase delete failed, queued for sync:', error);
+          await addToSyncQueue(id, 'delete', { id });
+        }
+      } catch (error) {
+        console.warn('Supabase delete failed, queued for sync:', error);
+        await addToSyncQueue(id, 'delete', { id });
+      }
+    } else {
+      await addToSyncQueue(id, 'delete', { id });
+    }
+
+    return await this.findAll();
+  }
+
+  async syncPending(): Promise<void> {
+    if (this.isSyncing) return;
+    if (!isOnline()) {
+      console.log('Offline - sync will happen when online');
+      return;
+    }
+
+    this.isSyncing = true;
+    try {
+      const pending = await getPendingSync();
+      if (pending.length === 0) {
+        this.isSyncing = false;
+        return;
+      }
+
+      console.log('Syncing ' + pending.length + ' items...');
+
+      for (const item of pending) {
+        try {
+          if (item.action === 'delete') {
+            const { error } = await supabase
+              .from('records')
+              .delete()
+              .eq('id', item.recordId);
+            if (!error) {
+              await markAsSynced(item.id);
+            }
+          } else {
+            const supabaseRecord = this.mapToSupabase(item.data);
+            const { error } = await supabase
+              .from('records')
+              .upsert(supabaseRecord, { onConflict: 'id' });
+            if (!error) {
+              await markAsSynced(item.id);
+            }
+          }
+        } catch (error) {
+          console.error('Failed to sync item ' + item.id + ':', error);
+        }
+      }
+
+      const synced = await db.syncQueue.where('synced').equals(true).toArray();
+      for (const item of synced) {
+        await db.syncQueue.delete(item.id);
+      }
+
+      await this.findAll();
+    } catch (error) {
+      console.error('Sync failed:', error);
+    } finally {
+      this.isSyncing = false;
+    }
+  }
+
+  private mapFromSupabase(data: any): EngineeringRecord {
+    return {
+      id: data.id,
+      projectId: data.project_id,
+      recordNumber: data.record_number,
+      title: data.title,
+      description: data.description,
+      category: data.category,
+      type: data.type,
+      discipline: data.discipline,
+      revision: data.revision || 'REV0',
+      version: data.version || 1,
+      isLatest: data.is_latest !== undefined ? data.is_latest : true,
+      status: data.status,
+      workflowState: data.workflow_state,
+      files: data.files || [],
+      primaryFileId: data.primary_file_id || '',
+      links: [],
+      dependencies: [],
+      annotations: data.annotations || [],
+      versions: [],
+      approval: {
+        id: '',
+        recordId: data.id,
+        versionId: '',
+        status: 'not_started',
+        workflow: [],
+        currentStep: 0,
+        createdBy: data.created_by || 'system',
+        createdAt: new Date(data.created_at || Date.now())
+      },
+      audit: {
+        createdBy: data.created_by || 'system',
+        createdAt: new Date(data.created_at || Date.now()),
+        lastModifiedBy: data.updated_by || data.created_by || 'system',
+        lastModifiedAt: new Date(data.updated_at || Date.now()),
+        events: []
+      },
+      ai: {
+        keywords: [],
+        entities: [],
+        confidence: 0,
+        suggestions: [],
+        recommendations: [],
+        similarRecords: []
+      },
+      metadata: data.metadata || { customFields: {} },
+      createdAt: new Date(data.created_at || Date.now()),
+      updatedAt: new Date(data.updated_at || Date.now()),
+      createdBy: data.created_by || 'system',
+      updatedBy: data.updated_by || data.created_by || 'system'
+    };
+  }
+
+  private mapToSupabase(record: EngineeringRecord): any {
+    return {
+      id: record.id,
+      project_id: record.projectId,
+      record_number: record.recordNumber,
+      title: record.title,
+      description: record.description,
+      category: record.category,
+      type: record.type,
+      discipline: record.discipline,
+      revision: record.revision,
+      version: record.version,
+      is_latest: record.isLatest,
+      status: record.status,
+      workflow_state: record.workflowState,
+      metadata: record.metadata,
+      files: record.files,
+      annotations: record.annotations,
+      created_by: record.createdBy,
+      updated_by: record.updatedBy,
+      created_at: record.createdAt,
+      updated_at: record.updatedAt
+    };
+  }
+}
