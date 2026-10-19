@@ -475,6 +475,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         onClose={() => setIsEditModalOpen(false)}
         onSave={onSaveProject}
         project={project}
+        workspaceId={project.workspaceId || 'default-workspace'}
+        userId={'current-user-id'}
       />
 
     </div>
