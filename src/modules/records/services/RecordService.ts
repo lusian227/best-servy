@@ -7,13 +7,13 @@ import type {
   CreateRecordInput,
   UpdateRecordInput,
   RecordSearchFilters,
-} from "../domain";
+} from "../domain/EngineeringRecord";
 
 export type {
   CreateRecordInput,
   UpdateRecordInput,
   RecordSearchFilters,
-} from "../domain";
+} from "../domain/EngineeringRecord";
 
 export class RecordService {
   constructor(

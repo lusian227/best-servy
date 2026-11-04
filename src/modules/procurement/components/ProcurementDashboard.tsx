@@ -2,6 +2,10 @@
 
 import React, { useMemo, useState, useEffect } from 'react';
 
+
+
+import { useAuth } from '../../../contexts/AuthContext';
+
 import {
     Package,
     FileText,
@@ -53,7 +57,7 @@ export function ProcurementDashboard({
         >('all');
 
     // ✅ GET CURRENT USER FROM UI STORE
-    const user = useUIStore((state) => state.currentUser);
+    const { user } = useAuth();
     // OR if your store uses it differently, check your store file. 
     // It might be: const user = useUIStore((state) => state.user);
 
@@ -691,9 +695,10 @@ export function ProcurementDashboard({
                                             </span>
 
                                             <span className="text-xs text-slate-400">
-                                                {formatCategory(
-                                                    request.category
-                                                )}
+                                                {request.category
+                                                    ? formatCategory(request.category)
+                                                    : 'Uncategorized'}
+
                                             </span>
                                         </div>
 

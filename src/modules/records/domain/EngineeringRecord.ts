@@ -80,6 +80,7 @@ export interface CreateRecordInput {
   discipline: Discipline;
   metadata?: Record<string, unknown>;
   createdBy: string;
+  updatedBy?: string;
 }
 
 export interface UpdateRecordInput {

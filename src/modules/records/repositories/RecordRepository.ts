@@ -225,7 +225,7 @@ export class RecordRepository {
 
       created_by: input.createdBy,
 
-      updated_by: input.createdBy,
+      updated_by: input.updatedBy ?? input.createdBy,
     };
 
     // ✅ LOG THE PAYLOAD BEFORE INSERT

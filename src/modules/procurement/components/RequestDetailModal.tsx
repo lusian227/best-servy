@@ -275,7 +275,9 @@ export function RequestDetailModal({
                                 </span>
 
                                 <span className="text-xs text-slate-500 dark:text-slate-400">
-                                    {formatCategory(request.category)}
+                                    {request.category
+                                        ? formatCategory(request.category)
+                                        : 'Uncategorized'}
                                 </span>
                             </div>
 
