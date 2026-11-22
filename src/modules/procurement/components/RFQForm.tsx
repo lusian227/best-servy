@@ -141,6 +141,13 @@ export function RFQForm({
             return;
         }
 
+        const resolvedProjectId = projectId ?? request.projectId;
+
+        if (!resolvedProjectId) {
+            setFormError('A project must be selected before creating an RFQ.');
+            return;
+        }
+
         // Build supplier list for RFQ
         const rfqSuppliers: RFQSupplier[] = validSuppliers.map((s) => ({
             id: s.id,
@@ -154,7 +161,7 @@ export function RFQForm({
         try {
             const rfq = await createRFQ({
                 requestId: request.id,
-                projectId: request.projectId,
+                projectId: resolvedProjectId,
                 title: title.trim(),
                 description: description.trim() || '',
                 suppliers: rfqSuppliers,

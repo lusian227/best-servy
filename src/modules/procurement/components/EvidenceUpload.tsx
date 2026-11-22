@@ -18,7 +18,7 @@ interface EvidenceUploadProps {
     existingEvidence?: Array<{
         id: string;
         type: EvidenceType;
-        fileName?: string;
+        fileName?: string | null;
         fileUrl?: string;
         storagePath?: string;
         uploadedAt: string;
@@ -216,8 +216,8 @@ export function EvidenceUpload({
                                     type="button"
                                     onClick={() => setEvidenceType(type.value)}
                                     className={`flex items-center gap-2 rounded-xl border px-3 py-2.5 text-sm transition ${evidenceType === type.value
-                                            ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-500 dark:bg-emerald-950/20 dark:text-emerald-400'
-                                            : 'border-slate-200 text-slate-600 hover:border-slate-300 dark:border-slate-700 dark:text-slate-400'
+                                        ? 'border-emerald-500 bg-emerald-50 text-emerald-700 dark:border-emerald-500 dark:bg-emerald-950/20 dark:text-emerald-400'
+                                        : 'border-slate-200 text-slate-600 hover:border-slate-300 dark:border-slate-700 dark:text-slate-400'
                                         }`}
                                 >
                                     {type.icon}

@@ -252,8 +252,8 @@ export function QuoteComparison({
                                 <div
                                     key={quotation.id}
                                     className={`rounded-xl border-2 transition ${isSelected
-                                            ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/20'
-                                            : 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900'
+                                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/20'
+                                        : 'border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900'
                                         } hover:shadow-md`}
                                     onClick={() => handleSelect(quotation.id)}
                                 >
@@ -374,9 +374,9 @@ export function QuoteComparison({
                                                                     key={index}
                                                                     className="grid grid-cols-4 gap-4 rounded-lg border border-slate-200 bg-slate-50 px-4 py-2 text-sm dark:border-slate-700 dark:bg-slate-800"
                                                                 >
-                                                                    <span className="text-slate-600 dark:text-slate-300">{item.description}</span>
+                                                                    <span className="text-slate-600 dark:text-slate-300">{item.name}</span>
                                                                     <span className="text-slate-500 dark:text-slate-400">
-                                                                        {item.quantity} {item.unit}
+                                                                        {item.quantity}
                                                                     </span>
                                                                     <span className="text-slate-500 dark:text-slate-400">
                                                                         {quotation.currency} {item.unitPrice.toFixed(2)}/unit

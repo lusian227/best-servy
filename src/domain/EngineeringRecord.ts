@@ -8,7 +8,11 @@ export type RecordCategory =
     | 'calculation'
     | 'rfi'
     | 'contract'
-    | 'other';
+    | 'other'
+    | 'standard'
+    | 'formula'
+    | 'procedure'
+    | 'material';
 
 export type RecordStatus =
     | 'draft'

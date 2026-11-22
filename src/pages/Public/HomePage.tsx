@@ -136,9 +136,9 @@ export default function HomePage() {
                             </p>
 
                             <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-                                One intelligent workspace.
+                                EngineerOS.
                                 <span className="text-emerald-400">
-                                    {' '}Every engineering project.
+                                    {' '}One Intelligent Engineering Workspace.
                                 </span>
                             </h1>
 

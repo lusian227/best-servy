@@ -633,18 +633,35 @@ export function RecordLibrary({
             onClose={() =>
               setSelectedRecord(null)
             }
-            onDownload={() => {
-              const storageUrl =
-                selectedRecord.metadata?.storageUrl;
+            onDownload={async () => {
+              const storageUrl = selectedRecord.storageUrl;
 
-              if (
-                storageUrl &&
-                typeof storageUrl === 'string'
-              ) {
-                window.open(
-                  storageUrl,
-                  '_blank'
-                );
+              if (!storageUrl) {
+                alert('No file URL is available for this record.');
+                return;
+              }
+
+              try {
+                const response = await fetch(storageUrl);
+
+                if (!response.ok) {
+                  throw new Error('Unable to download file.');
+                }
+
+                const blob = await response.blob();
+                const downloadUrl = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = downloadUrl;
+                link.download = selectedRecord.fileName || 'engineering-record';
+                document.body.appendChild(link);
+                link.click();
+                link.remove();
+
+                URL.revokeObjectURL(downloadUrl);
+              } catch (error) {
+                console.error('Record download failed:', error);
+                alert('Unable to download this file. Please try again.');
               }
             }}
             onDelete={handleDeleteRecord}

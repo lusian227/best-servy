@@ -9,8 +9,7 @@ import type {
   CreateRecordInput,
   UpdateRecordInput,
   RecordSearchFilters,
-} from "../domain";
-
+} from "../domain/EngineeringRecord";
 export class RecordRepository {
 
   async findById(
@@ -23,16 +22,15 @@ export class RecordRepository {
       .eq("id", id)
       .maybeSingle();
 
-    // ✅ FIXED: Removed invalid 'payload' reference
     if (error) {
       console.error("========== RECORD FIND FAILED ==========");
-      console.error("Supabase error:", error);
-      console.error("code:", error.code);
-      console.error("message:", error.message);
-      console.error("details:", error.details);
-      console.error("hint:", error.hint);
-      console.error("record id:", id);
+      console.error("Code:", error.code);
+      console.error("Message:", error.message);
+      console.error("Details:", error.details);
+      console.error("Hint:", error.hint);
+      console.error("Record ID:", id);
       console.error("=========================================");
+
       throw error;
     }
 
@@ -149,10 +147,9 @@ export class RecordRepository {
 
     if (error) {
       console.error(
-        "RecordRepository.findAll:",
+        "RecordRepository.update:",
         error
       );
-
       throw error;
     }
 

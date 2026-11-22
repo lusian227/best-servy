@@ -23,6 +23,8 @@ import {
 } from 'lucide-react';
 import { useCompanyStore } from '../../stores/companyStore';
 
+import { useAuth } from '../../contexts/AuthContext';
+
 type ProjectView = 'overview' | 'decisions' | 'drawings' | 'health';
 
 interface ProjectDetailProps {
@@ -61,6 +63,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
   // ============================================================
 
   const { activeCompanyId } = useCompanyStore();
+  const { user } = useAuth();
 
   // ============================================================
   // SAFETY CHECK — Project exists
@@ -329,12 +332,16 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({
         />
       )}
 
-      <ProjectFormModal
-        isOpen={isEditModalOpen}
-        onClose={() => setIsEditModalOpen(false)}
-        onSave={onSaveProject}
-        project={project}
-      />
+      {user?.id && project.workspaceId && (
+        <ProjectFormModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          onSave={onSaveProject}
+          project={project}
+          workspaceId={project.workspaceId}
+          userId={user.id}
+        />
+      )}
     </div>
   );
 };

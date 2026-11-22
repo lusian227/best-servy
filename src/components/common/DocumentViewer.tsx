@@ -8,7 +8,9 @@ interface DocumentViewerProps {
 }
 
 export const DocumentViewer: React.FC<DocumentViewerProps> = ({ record, onClose }) => {
+
     const [content, setContent] = useState<string | null>(null);
+    const [detectedMimeType, setDetectedMimeType] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -102,11 +104,52 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ record, onClose 
                 data
             );
 
-            const mimeType =
+            const fileName =
+                record.fileName ||
+                record.title ||
+                record.name ||
+                '';
+
+            const extension = fileName.split('.').pop()?.toLowerCase() || '';
+
+            const storedMimeType =
                 record.mimeType ||
                 record.metadata?.mimeType ||
                 data.type ||
                 '';
+
+            const extensionMimeTypes: Record<string, string> = {
+                pdf: 'application/pdf',
+                jpg: 'image/jpeg',
+                jpeg: 'image/jpeg',
+                png: 'image/png',
+                gif: 'image/gif',
+                webp: 'image/webp',
+                txt: 'text/plain',
+                md: 'text/markdown',
+                csv: 'text/csv',
+                json: 'application/json',
+                xml: 'application/xml',
+                html: 'text/html',
+                url: 'text/plain',
+                doc: 'application/msword',
+                docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                xls: 'application/vnd.ms-excel',
+                xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                ppt: 'application/vnd.ms-powerpoint',
+                pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            };
+
+            const mimeType =
+                !storedMimeType ||
+                    storedMimeType === 'application/octet-stream'
+                    ? extensionMimeTypes[extension] || storedMimeType
+                    : storedMimeType;
+
+            setDetectedMimeType(mimeType);
+
+            console.log('📄 DETECTED MIME TYPE:', mimeType);
+            console.log('📄 FILE EXTENSION:', extension);
 
             console.log(
                 '📄 MIME TYPE:',
@@ -129,11 +172,23 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ record, onClose 
                 return;
             }
 
-            // TEXT
+            // INTERNET SHORTCUT (.url)
+            if (extension === 'url') {
+                const text = await data.text();
+                // Extract the URL from the text file
+                const urlMatch = text.match(/URL=(.+)/);
+                if (urlMatch && urlMatch[1]) {
+                    setContent(`url-link:${urlMatch[1].trim()}`);
+                } else {
+                    setContent('This shortcut file is invalid.');
+                }
+                return;
+            }
+
+            // STANDARD TEXT FILES
             if (mimeType.startsWith('text/')) {
                 const text = await data.text();
-
-                setContent(text);
+                setContent(text || 'This file is empty.');
                 return;
             }
 
@@ -227,7 +282,7 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ record, onClose 
         }
 
         // Image viewer
-        if (record.mimeType?.startsWith('image/')) {
+        if (detectedMimeType.startsWith('image/')) {
             return (
                 <img
                     src={content || ''}
@@ -238,7 +293,7 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ record, onClose 
         }
 
         // PDF viewer
-        if (record.mimeType === 'application/pdf') {
+        if (detectedMimeType === 'application/pdf') {
             return (
                 <iframe
                     src={content || ''}
@@ -248,8 +303,29 @@ export const DocumentViewer: React.FC<DocumentViewerProps> = ({ record, onClose 
             );
         }
 
-        // Text viewer
-        if (record.mimeType?.startsWith('text/')) {
+        // Internet Shortcut link viewer
+        if (content?.startsWith('url-link:')) {
+            const actualUrl = content.replace('url-link:', '');
+            return (
+                <div className="text-center py-12">
+                    <File className="w-16 h-16 mx-auto text-blue-500 mb-4" />
+                    <p className="text-slate-600 dark:text-slate-400 font-medium mb-4">
+                        This is an internet shortcut link
+                    </p>
+                    <a
+                        href={actualUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition inline-flex items-center gap-2 font-medium"
+                    >
+                        Open Link in New Tab
+                    </a>
+                </div>
+            );
+        }
+
+        // Standard Text viewer
+        if (detectedMimeType.startsWith('text/')) {
             return (
                 <pre className="whitespace-pre-wrap font-mono text-sm p-4 bg-slate-50 dark:bg-slate-800 rounded-lg max-h-[70vh] overflow-auto">
                     {content}

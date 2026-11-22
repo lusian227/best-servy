@@ -17,7 +17,7 @@ import { useProcurement } from '../hooks/useProcurement';
 import { DeliveryModal } from './DeliveryModal';
 import { PaymentModal } from './PaymentModal';
 import { EvidenceUpload } from './EvidenceUpload';
-import type { ProcurementRequest, ProcurementTransactionSummary } from '../domain';
+import type { ProcurementRequest, ProcurementTransactionSummary, EvidenceType } from '../domain';
 
 interface ProcurementTransactionPanelProps {
     requestId: string;
@@ -253,7 +253,7 @@ export function ProcurementTransactionPanel({
 
     const handleUploadEvidence = async (data: {
         file: File;
-        type: 'delivery_photo' | 'delivery_note' | 'invoice' | 'payment_receipt' | 'calculation' | 'other';
+        type: EvidenceType;
         description?: string;
     }) => {
         await uploadEvidence({
@@ -684,7 +684,7 @@ export function ProcurementTransactionPanel({
                 workspaceId={workspaceId}
                 onClose={() => setShowEvidenceModal(false)}
                 onUpload={handleUploadEvidence}
-                existingEvidence={evidence}
+                existingEvidence={evidence.map(e => ({ ...e, fileName: e.fileName || undefined, fileUrl: e.fileUrl || undefined, storagePath: e.storagePath || undefined }))}
                 onDelete={handleDeleteEvidence}
             />
         </div>

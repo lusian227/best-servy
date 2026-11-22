@@ -442,7 +442,7 @@ export function SupplierProcurementDetail({
             () =>
                 confirmDelivery({
                     procurementRequestId: request.id,
-                    workspaceId: request.workspaceId!,
+                    workspaceId,
                     quantityDelivered,
                     condition,
                     notes: deliveryNotes,
@@ -462,7 +462,7 @@ export function SupplierProcurementDetail({
             () =>
                 reportPayment({
                     procurementRequestId: request.id,
-                    workspaceId: request.workspaceId!,
+                    workspaceId,
                     amount: paymentAmount,
                     paymentMethod,
                     transactionReference:
@@ -496,7 +496,7 @@ export function SupplierProcurementDetail({
             () =>
                 uploadEvidence({
                     procurementRequestId: request.id,
-                    workspaceId: request.workspaceId,
+                    workspaceId,
                     type,
                     file,
                     userId,
@@ -1126,7 +1126,7 @@ export function SupplierProcurementDetail({
                                             () =>
                                                 confirmRequesterReceipt(
                                                     request.id,
-                                                    request.workspaceId!,
+                                                    workspaceId,
                                                     userId
                                                 ),
                                             'confirm receipt'
